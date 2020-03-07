@@ -827,3 +827,139 @@ def query_gyros_by_time(db, start_time, end_time):
 
     dicts = rows_to_dicts(result) 
     return dicts
+
+def query_accels_by_time(db, start_time, end_time):
+    """find all rows in accels table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from accels table by time")
+
+    query = '''
+         SELECT *
+           FROM accels
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def query_biometric_by_time(db, start_time, end_time):
+    """find all rows in biometric table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from biometric table by time")
+
+    query = '''
+         SELECT *
+           FROM biometric
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def query_game_by_time(db, start_time, end_time):
+    """find all rows in game table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from game table by time")
+
+    query = '''
+         SELECT *
+           FROM game
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def query_test_by_time(db, start_time, end_time):
+    """find all rows in test table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from test table by time")
+
+    query = '''
+         SELECT *
+           FROM test
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
