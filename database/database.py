@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+# author: Sam Nelson (samueljn)
+
+###############################################
+### API for interacting with RPCS DB Server ###
+### ------------- DO NOT EDIT ------------- ###
+###############################################
+
 import os
 import logging
 
@@ -239,7 +246,7 @@ def find_all_gyros(db):
     except Exception as ex:
         logger.error("Failed to execute query")
         raise ex
-    dicts = rows_to_dicts(result) 
+    dicts = rows_to_dicts(result)
     return dicts
 
 def find_all_accels(db):
@@ -264,7 +271,7 @@ def find_all_accels(db):
     except Exception as ex:
         logger.error("Failed to execute query")
         raise ex
-    dicts = rows_to_dicts(result) 
+    dicts = rows_to_dicts(result)
     return dicts
 
 def find_all_biometric(db):
@@ -289,7 +296,7 @@ def find_all_biometric(db):
     except Exception as ex:
         logger.error("Failed to execute query")
         raise ex
-    dicts = rows_to_dicts(result) 
+    dicts = rows_to_dicts(result)
     return dicts
 
 def find_all_game(db):
@@ -314,7 +321,7 @@ def find_all_game(db):
     except Exception as ex:
         logger.error("Failed to execute query")
         raise ex
-    dicts = rows_to_dicts(result) 
+    dicts = rows_to_dicts(result)
     return dicts
 
 def find_all_test(db):
@@ -962,4 +969,133 @@ def query_test_by_time(db, start_time, end_time):
         raise ex
 
     dicts = rows_to_dicts(result) 
+    return dicts
+
+
+
+# # # Find one functions are mainly for testing purposes, they are not optimized for performance # # #
+
+def find_one_gyro(db):
+    """find one random row in the gyros table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from gyros table")
+    query = '''
+         SELECT *
+           FROM gyros;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_one_accel(db):
+    """find one random row in the accels table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from accels table")
+    query = '''
+         SELECT *
+           FROM accels;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_one_biometric(db):
+    """find one random row in the biometric table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from biometric table")
+    query = '''
+         SELECT *
+           FROM biometric;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_one_game(db):
+    """find one random row in the game table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from game table")
+    query = '''
+         SELECT *
+           FROM game;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_one_test(db):
+    """find one random row in the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from test table")
+    query = '''
+         SELECT *
+           FROM test;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
     return dicts
