@@ -33,4 +33,4 @@ tasks:
     desc: Seeds local postgres database with test data
     cmds:
       - |
-        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < seeds/init_engine_db.sql
+        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < seeds/test_data.sql

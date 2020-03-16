@@ -9,8 +9,8 @@ export DB_HOST='localhost'
 export DB_PORT='5432'
 
 # Local connection
-export LOCAL_USERNAME='postgres'
-export LOCAL_PASSWORD='admin'
+export LOCAL_PG_USER='postgres'
+export LOCAL_PG_PASSWORD='admin'
 export LOCAL_DB_NAME='engine_db'
-export LOCAL_DB_HOST='localhost'
-export LOCAL_DB_PORT='5432'
+export LOCAL_PG_HOST='localhost'
+export LOCAL_PG_PORT='5432'

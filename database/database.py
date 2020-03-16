@@ -9,6 +9,7 @@
 
 import os
 import logging
+from random import randrange
 
 from sqlalchemy import create_engine
 
@@ -998,7 +999,7 @@ def find_one_gyro(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts
+    return dicts[randrange(len(dicts)+1)]
 
 def find_one_accel(db):
     """find one random row in the accels table
@@ -1023,7 +1024,7 @@ def find_one_accel(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts
+    return dicts[randrange(len(dicts)+1)]
 
 def find_one_biometric(db):
     """find one random row in the biometric table
@@ -1048,7 +1049,7 @@ def find_one_biometric(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts
+    return dicts[randrange(len(dicts)+1)]
 
 def find_one_game(db):
     """find one random row in the game table
@@ -1073,7 +1074,7 @@ def find_one_game(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts
+    return dicts[randrange(len(dicts)+1)]
 
 def find_one_test(db):
     """find one random row in the test table
@@ -1098,4 +1099,4 @@ def find_one_test(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result)
-    return dicts
+    return dicts[randrange(len(dicts)+1)]
