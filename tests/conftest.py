@@ -102,17 +102,17 @@ def time_played():
 @pytest.fixture
 def test_id():
 	db = get_db()
-	return str(find_one_game(db)['test_id'])
+	return str(find_one_test(db)['test_id'])
 
 @pytest.fixture
 def test_desc():
 	db = get_db()
-	return str(find_one_game(db)['description'])
+	return str(find_one_test(db)['description'])
 
 @pytest.fixture
 def test_score():
 	db = get_db()
-	return str(find_one_game(db)['test_score'])
+	return str(find_one_test(db)['test_score'])
 
 @pytest.fixture
 def start_time():

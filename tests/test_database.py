@@ -2,7 +2,7 @@
 
 import pytest
 from database.database import get_db, \
-							  find_gyro_by_id
+							  find_gyro_by_id, \
 							  find_accels_by_id, \
 							  find_biometric_by_id, \
 							  find_game_by_id, \
@@ -63,10 +63,23 @@ def test_find_all_biometric(database):
 	assert find_all_biometric(database) is not None
 
 def test_find_all_game(database):
-	assert find_all_game(database) is not None
+	results = find_all_game(database)
+	assert results is not None
+	for result in results:
+		assert result['id'] is not None
+		assert result["description"] is not None
+		assert result['patient_id'] is not None
+		assert result['game_score'] is not None
+		assert result['time_played'] is not None
 
 def test_find_all_test(database):
-	assert find_all_test(database) is not None
+	results = find_all_test(database)
+	assert results is not None
+	for result in results:
+		assert result['id'] is not None
+		assert result["description"] is not None
+		assert result['patient_id'] is not None
+		assert result['test_score'] is not None
 
 def test_insert_gyro(database, gyro_id, gyro_desc, patient_id, gyro_x, gyro_y, gyro_z):
 	assert insert_gyro(database, gyro_id, gyro_desc, patient_id, gyro_x, gyro_y, gyro_z) is True

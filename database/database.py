@@ -460,7 +460,7 @@ def insert_game(db, game_id, description, patient_id, game_score, time_played):
     logger.info("Inserting row into game table")
 
     query = '''
-         INSERT INTO accels (game_id, description, patient_id, game_score, time_played)
+         INSERT INTO game (game_id, description, patient_id, game_score, time_played)
            VALUES (%s, %s, %s, %s, %s);
     '''
     data = (game_id, description, patient_id, game_score, time_played)
@@ -491,7 +491,7 @@ def insert_test(db, test_id, description, patient_id, test_score):
     logger.info("Inserting row into test table")
 
     query = '''
-         INSERT INTO accels (test_id, description, patient_id, test_score)
+         INSERT INTO test (test_id, description, patient_id, test_score)
            VALUES (%s, %s, %s, %s);
     '''
     data = (test_id, description, patient_id, test_score)
@@ -999,7 +999,7 @@ def find_one_gyro(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts[randrange(len(dicts)+1)]
+    return dicts[randrange(len(dicts))]
 
 def find_one_accel(db):
     """find one random row in the accels table
@@ -1024,7 +1024,7 @@ def find_one_accel(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts[randrange(len(dicts)+1)]
+    return dicts[randrange(len(dicts))]
 
 def find_one_biometric(db):
     """find one random row in the biometric table
@@ -1049,7 +1049,7 @@ def find_one_biometric(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts[randrange(len(dicts)+1)]
+    return dicts[randrange(len(dicts))]
 
 def find_one_game(db):
     """find one random row in the game table
@@ -1074,7 +1074,7 @@ def find_one_game(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result) 
-    return dicts[randrange(len(dicts)+1)]
+    return dicts[randrange(len(dicts))]
 
 def find_one_test(db):
     """find one random row in the test table
@@ -1099,4 +1099,4 @@ def find_one_test(db):
         logger.error("Failed to execute query")
         raise ex
     dicts = rows_to_dicts(result)
-    return dicts[randrange(len(dicts)+1)]
+    return dicts[randrange(len(dicts))]
