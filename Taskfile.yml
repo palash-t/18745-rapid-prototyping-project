@@ -1,0 +1,42 @@
+# github.com/go-task/task
+
+version: '2'
+
+vars:
+  PG_USER: postgres
+  PG_PASSWORD: admin
+  PG_HOST: localhost
+  DB_NAME: engine_db
+  DUMP_FILE: database/seeds/init_engine_db.sql
+
+tasks:
+  drop-db:
+    desc: Drop the engine_db
+    cmds: 
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} dropdb --host {{.PG_HOST}} -U {{.PG_USER}} {{.DB_NAME}} &&
+        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -c 'CREATE DATABASE {{.DB_NAME}};'
+
+  restore-db:
+    desc: Restore the engine_db
+    cmds: 
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/seeds/init_engine_db.sql
+
+  dump-db:
+    desc: Dump the engine_db
+    cmds: 
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --schema-only --file=database/seeds/init_engine_db.sql
+
+  seed-test-data:
+    desc: Seeds local postgres database with test data
+    cmds:
+      - |
+        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < database/seeds/test_data.sql
+
+  run-tests:
+    desc: Run the tests to exercise the database API
+    cmds:
+      - tasks: drop-db seed-test-data
+      - pytest tests/
