@@ -65,6 +65,20 @@ def rows_to_dicts(rows):
         dict_rows.append(dict(row))
     return dict_rows
 
+def single_row_to_dict(row):
+    """Convert a row object to a list of dicts
+
+    Args:
+        row (sqlalchemy.ResultProxy): Result from sqlalchemy query
+
+    Returns:
+        dict: Dict with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    for the_row in row:
+        return the_row
+    return []
+
 
 def find_gyro_by_id(db, _id):
     """find one row in the gyros table that matches the given id
@@ -96,7 +110,7 @@ def find_gyro_by_id(db, _id):
         logger.error("Failed to execute query")
         raise ex
 
-    return result
+    return single_row_to_dict(result)
 
 def find_accels_by_id(db, _id):
     """find one row in the accels table that matches the given id
@@ -128,7 +142,7 @@ def find_accels_by_id(db, _id):
         logger.error("Failed to execute query")
         raise ex
 
-    return result
+    return single_row_to_dict(result)
 
 def find_biometric_by_id(db, _id):
     """find one row in the biometric table that matches the given id
@@ -160,7 +174,7 @@ def find_biometric_by_id(db, _id):
         logger.error("Failed to execute query")
         raise ex
 
-    return result
+    return single_row_to_dict(result)
 
 def find_game_by_id(db, _id):
     """find one row in the game table that matches the given id
@@ -192,7 +206,7 @@ def find_game_by_id(db, _id):
         logger.error("Failed to execute query")
         raise ex
 
-    return result
+    return single_row_to_dict(result)
 
 def find_test_by_id(db, _id):
     """find one row in the test table that matches the given id
@@ -223,7 +237,7 @@ def find_test_by_id(db, _id):
     except Exception as ex:
         logger.error("Failed to execute query")
         raise ex
-    return result
+    return single_row_to_dict(result)
 
 def find_all_gyros(db):
     """find all rows in the gyros table
