@@ -113,13 +113,3 @@ def test_desc():
 def test_score():
 	db = get_db()
 	return str(find_one_test(db)['test_score'])
-
-@pytest.fixture
-def start_time():
-	db = get_db()
-	pass
-
-@pytest.fixture
-def end_time():
-	db = get_db()
-	pass

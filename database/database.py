@@ -112,7 +112,7 @@ def find_gyro_by_id(db, _id):
 
     return single_row_to_dict(result)
 
-def find_accels_by_id(db, _id):
+def find_accel_by_id(db, _id):
     """find one row in the accels table that matches the given id
 
     Args:
