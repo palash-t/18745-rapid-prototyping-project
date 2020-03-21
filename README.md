@@ -1,3 +1,17 @@
 # rapid-prototyping-project
 
-TODO: Install process and dependencies
+## Local Setup
+
+Install postgres
+```
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+Install pip dependencies
+`sudo pip install -r requirements.txt`
+
+Verify the installation is working
+`sudo -u postgres psql -c "SELECT version();"`
+
+Run tests (NOTE: this will blow the local database away and reseed with test_data.sql)
+`task run-tests`

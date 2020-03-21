@@ -38,5 +38,7 @@ tasks:
   run-tests:
     desc: Run the tests to exercise the database API
     cmds:
-      - tasks: drop-db seed-test-data
+      - task: drop-db
+      - task: restore-db
+      - task: seed-test-data
       - pytest tests/
