@@ -2,11 +2,14 @@
 # AWS and DB connection secrets
 
 # Remote connection
-export USERNAME='postgres'
-export PASSWORD='admin'
-export DB_NAME='engine_db'
-export DB_HOST='localhost'
-export DB_PORT='5432'
+export USERNAME=postgres
+export PASSWORD=HhmL0SWLuxPirhQO9dXD
+export DB_NAME=engine_db
+export DB_HOST=rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com
+export DB_PORT=5432
+
+
+export RDSHOST=rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com
 
 # Local connection
 export LOCAL_PG_USER='postgres'

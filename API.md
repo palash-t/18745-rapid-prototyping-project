@@ -1,0 +1,410 @@
+# Database API
+API that handles the interfacing of data and the postgresql database server
+
+### get_db(db_name='engine_db'):
+    """Get the DB engine
+
+    Returns:
+        slqalchemy.engine
+    """
+
+### find_gyro_by_id(db, id):
+    """find one row in the gyros table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
+### find_accel_by_id(db, id):
+    """find one row in the accels table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
+### find_biometric_by_id(db, id):
+    """find one row in the biometric table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
+### find_game_by_id(db, id):
+    """find one row in the game table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
+### find_test_by_id(db, id):
+    """find one row in the test table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
+### find_all_gyros(db):
+    """find all rows in the gyros table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_accels(db):
+    """find all rows in the accels table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_biometric(db):
+    """find all rows in the biometric table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_game(db):
+    """find all rows in the game table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_test(db):
+    """find all rows in the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### insert_gyro(db, gyro_id, description, patient_id, x, y, z):
+    """insert row into the gyros table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_accel(db, accel_id, description, patient_id, x, y, z):
+    """insert row into the accels table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_biometric(db, patient_id, heart_rate, blood_pressure):
+    """insert row into the biometric table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_game(db, game_id, description, patient_id, game_score, time_played):
+    """insert row into the game table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_test(db, test_id, description, patient_id, test_score):
+    """insert row into the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### find_gyro_by_patient_id(db, patient_id):
+    """find all rows in the gyros table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_accels_by_patient_id(db, patient_id):
+    """find all rows in the accels table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_biometric_by_patient_id(db, patient_id):
+    """find all rows in the biometric table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_game_by_patient_id(db, patient_id):
+    """find all rows in the game table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_test_by_patient_id(db, patient_id):
+    """find all rows in the test table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_by_gyro_id(db, gyro_id):
+    """find all rows in a given table that match the given gyro_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        gyro_id (str(uuid)): id of the given gyroscope
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_by_accel_id(db, accel_id):
+    """find all rows in a given table that match the given accel_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        accel_id (str(uuid)): id of the given accelerometer
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_by_game_id(db, game_id):
+    """find all rows in a given table that match the given game_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        game_id (str(uuid)): id of the given game
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_by_test_id(db, test_id):
+    """find all rows in a given table that match the given test_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        test_id (str(uuid)): id of the given test
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_gyros_by_time(db, start_time, end_time):
+    """find all rows in gyros table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_accels_by_time(db, start_time, end_time):
+    """find all rows in accels table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_biometric_by_time(db, start_time, end_time):
+    """find all rows in biometric table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_game_by_time(db, start_time, end_time):
+    """find all rows in game table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_test_by_time(db, start_time, end_time):
+    """find all rows in test table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+
+## Find one functions are mainly for testing purposes, they are not optimized for performance, but can still be used in production
+
+### find_one_gyro(db):
+    """find one random row in the gyros table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_accel(db):
+    """find one random row in the accels table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_biometric(db):
+    """find one random row in the biometric table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_game(db):
+    """find one random row in the game table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_test(db):
+    """find one random row in the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
