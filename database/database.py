@@ -16,9 +16,9 @@ from sqlalchemy import create_engine
 from logger import setup_logging
 
 USERNAME = os.getenv('postgres', 'postgres')
-PASSWORD = os.getenv('admin', 'admin')
+PASSWORD = os.getenv('admin', 'HhmL0SWLuxPirhQO9dXD')
 DB_NAME = os.getenv('engine_db', 'engine_db')
-DB_HOST = os.getenv('localhost', 'localhost')
+DB_HOST = os.getenv('localhost', 'rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com')
 DB_PORT = os.getenv('5432', '5432')
 
 

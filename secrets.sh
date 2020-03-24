@@ -8,9 +8,6 @@ export DB_NAME=engine_db
 export DB_HOST=rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com
 export DB_PORT=5432
 
-
-export RDSHOST=rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com
-
 # Local connection
 export LOCAL_PG_USER='postgres'
 export LOCAL_PG_PASSWORD='admin'
