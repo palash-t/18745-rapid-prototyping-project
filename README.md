@@ -6,6 +6,14 @@ The APIs in this repository are the access point for Hardware and Dashboards to 
 
 Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the code.
 
+## Checklist for adding an api function or adding to the schema
+
+1. Add the table to the `init_engine_db.sql`, use other tables as examples
+2. Add necessary functions to `database.py` with DETAILED docstrings. See other functions for examples.
+3. Add dummy test data to `test_data.sql`
+4. Add a tests to exercise each new function appropriately.
+5. Add the function header and the doc string to `API.md`
+
 ## Local Setup
 
 Install postgres
