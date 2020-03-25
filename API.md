@@ -1,14 +1,14 @@
 # Database API
 API that handles the interfacing of data and the postgresql database server
 
-### get_db(db_name='engine_db'):
+### get_db(db_name='engine_db')
     """Get the DB engine
 
     Returns:
         slqalchemy.engine
     """
 
-### find_gyro_by_id(db, id):
+### find_gyro_by_id(db, id)
     """find one row in the gyros table that matches the given primary key id
 
     Args:
@@ -20,7 +20,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_accel_by_id(db, id):
+### find_accel_by_id(db, id)
     """find one row in the accels table that matches the given primary key id
 
     Args:
@@ -32,7 +32,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_biometric_by_id(db, id):
+### find_biometric_by_id(db, id)
     """find one row in the biometric table that matches the given primary key id
 
     Args:
@@ -44,7 +44,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_game_by_id(db, id):
+### find_game_by_id(db, id)
     """find one row in the game table that matches the given primary key id
 
     Args:
@@ -56,7 +56,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_test_by_id(db, id):
+### find_test_by_id(db, id)
     """find one row in the test table that matches the given primary key id
 
     Args:
@@ -68,7 +68,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_emotion_by_id(db, id):
+### find_emotion_by_id(db, id)
     """find one row in the emotion table that matches the given primary key id
 
     Args:
@@ -80,7 +80,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_all_gyros(db):
+### find_all_gyros(db)
     """find all rows in the gyros table
 
     Args:
@@ -91,7 +91,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_all_accels(db):
+### find_all_accels(db)
     """find all rows in the accels table
 
     Args:
@@ -102,7 +102,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_all_biometric(db):
+### find_all_biometric(db)
     """find all rows in the biometric table
 
     Args:
@@ -113,7 +113,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_all_game(db):
+### find_all_game(db)
     """find all rows in the game table
 
     Args:
@@ -124,7 +124,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_all_test(db):
+### find_all_test(db)
     """find all rows in the test table
 
     Args:
@@ -135,7 +135,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_all_emotion(db):
+### find_all_emotion(db)
     """find all rows in the emotion table
 
     Args:
@@ -146,7 +146,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### insert_gyro(db, gyro_id, description, patient_id, x, y, z):
+### insert_gyro(db, gyro_id, description, patient_id, x, y, z)
     """insert row into the gyros table
 
     Args:
@@ -157,7 +157,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_accel(db, accel_id, description, patient_id, x, y, z):
+### insert_accel(db, accel_id, description, patient_id, x, y, z)
     """insert row into the accels table
 
     Args:
@@ -168,7 +168,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_biometric(db, patient_id, heart_rate, blood_pressure):
+### insert_biometric(db, patient_id, heart_rate, blood_pressure)
     """insert row into the biometric table
 
     Args:
@@ -179,7 +179,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_game(db, game_id, description, patient_id, game_score, time_played):
+### insert_game(db, game_id, description, patient_id, game_score, time_played)
     """insert row into the game table
 
     Args:
@@ -190,7 +190,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_test(db, test_id, description, patient_id, test_score):
+### insert_test(db, test_id, description, patient_id, test_score)
     """insert row into the test table
 
     Args:
@@ -201,7 +201,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_emotion(db, patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness):
+### insert_emotion(db, patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness)
     """insert row into the emotion table
 
     Args:
@@ -212,7 +212,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### find_gyro_by_patient_id(db, patient_id):
+### find_gyro_by_patient_id(db, patient_id)
     """find all rows in the gyros table that matches the given patient_id
 
     Args:
@@ -224,7 +224,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_accels_by_patient_id(db, patient_id):
+### find_accels_by_patient_id(db, patient_id)
     """find all rows in the accels table that matches the given patient_id
 
     Args:
@@ -236,7 +236,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_biometric_by_patient_id(db, patient_id):
+### find_biometric_by_patient_id(db, patient_id)
     """find all rows in the biometric table that matches the given patient_id
 
     Args:
@@ -248,7 +248,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_game_by_patient_id(db, patient_id):
+### find_game_by_patient_id(db, patient_id)
     """find all rows in the game table that matches the given patient_id
 
     Args:
@@ -260,7 +260,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_test_by_patient_id(db, patient_id):
+### find_test_by_patient_id(db, patient_id)
     """find all rows in the test table that matches the given patient_id
 
     Args:
@@ -272,7 +272,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_emotiontest_by_patient_id(db, patient_id):
+### find_emotiontest_by_patient_id(db, patient_id)
     """find all rows in the emotion table that matches the given patient_id
 
     Args:
@@ -284,7 +284,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_by_gyro_id(db, gyro_id):
+### find_by_gyro_id(db, gyro_id)
     """find all rows in a given table that match the given gyro_id
 
     Args:
@@ -296,7 +296,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_by_accel_id(db, accel_id):
+### find_by_accel_id(db, accel_id)
     """find all rows in a given table that match the given accel_id
 
     Args:
@@ -308,7 +308,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_by_game_id(db, game_id):
+### find_by_game_id(db, game_id)
     """find all rows in a given table that match the given game_id
 
     Args:
@@ -320,7 +320,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_by_test_id(db, test_id):
+### find_by_test_id(db, test_id)
     """find all rows in a given table that match the given test_id
 
     Args:
@@ -332,7 +332,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_by_dominant_emotion(db, dominant_emotion):
+### find_by_dominant_emotion(db, dominant_emotion)
     """find all rows in the emotion table that match the given dominant_emotion
 
     Args:
@@ -344,7 +344,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### query_gyros_by_time(db, start_time, end_time):
+### query_gyros_by_time(db, start_time, end_time)
     """find all rows in gyros table that where recorded between a given start and end time
 
     Args:
@@ -357,7 +357,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### query_accels_by_time(db, start_time, end_time):
+### query_accels_by_time(db, start_time, end_time)
     """find all rows in accels table that where recorded between a given start and end time
 
     Args:
@@ -370,7 +370,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### query_biometric_by_time(db, start_time, end_time):
+### query_biometric_by_time(db, start_time, end_time)
     """find all rows in biometric table that where recorded between a given start and end time
 
     Args:
@@ -383,7 +383,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### query_game_by_time(db, start_time, end_time):
+### query_game_by_time(db, start_time, end_time)
     """find all rows in game table that where recorded between a given start and end time
 
     Args:
@@ -396,7 +396,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### query_test_by_time(db, start_time, end_time):
+### query_test_by_time(db, start_time, end_time)
     """find all rows in test table that where recorded between a given start and end time
 
     Args:
@@ -409,7 +409,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### query_emotion_by_time(db, start_time, end_time):
+### query_emotion_by_time(db, start_time, end_time)
     """find all rows in emotion table that where recorded between a given start and end time
 
     Args:
@@ -424,7 +424,7 @@ API that handles the interfacing of data and the postgresql database server
 
 ## Find one functions are mainly for testing purposes, they are not optimized for performance, but can still be used in production
 
-### find_one_gyro(db):
+### find_one_gyro(db)
     """find one random row in the gyros table
 
     Args:
@@ -435,7 +435,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty dict is returned.
     """
 
-### find_one_accel(db):
+### find_one_accel(db)
     """find one random row in the accels table
 
     Args:
@@ -446,7 +446,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty dict is returned.
     """
 
-### find_one_biometric(db):
+### find_one_biometric(db)
     """find one random row in the biometric table
 
     Args:
@@ -457,7 +457,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty dict is returned.
     """
 
-### find_one_game(db):
+### find_one_game(db)
     """find one random row in the game table
 
     Args:
@@ -468,7 +468,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty dict is returned.
     """
 
-### find_one_test(db):
+### find_one_test(db)
     """find one random row in the test table
 
     Args:
@@ -479,7 +479,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty dict is returned.
     """
 
-### def find_one_emotion(db):
+### def find_one_emotion(db)
     """find one random row in the emotion table
 
     Args:
