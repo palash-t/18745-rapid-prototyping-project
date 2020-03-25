@@ -21,7 +21,6 @@ DB_NAME = os.getenv('engine_db', 'engine_db')
 DB_HOST = os.getenv('localhost', 'rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com')
 DB_PORT = os.getenv('5432', '5432')
 
-
 def get_db(db_name='engine_db'):
     """Get the DB engine
 
@@ -239,6 +238,37 @@ def find_test_by_id(db, _id):
         raise ex
     return single_row_to_dict(result)
 
+def find_emotion_by_id(db, _id):
+    """find one row in the emotion table that matches the given id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (uuid): unique id for row
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching one row from emotion table")
+
+    query = '''
+         SELECT *
+           FROM emotion
+          WHERE id = %s;
+    '''
+    data = (_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    return single_row_to_dict(result)
+
 def find_all_gyros(db):
     """find all rows in the gyros table
 
@@ -355,6 +385,31 @@ def find_all_test(db):
     query = '''
          SELECT *
            FROM test;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
+    return dicts
+
+def find_all_emotion(db):
+    """find all rows in the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching all rows from emotion table")
+    query = '''
+         SELECT *
+           FROM emotion;
     '''
     try:
         result = db.execute(query)
@@ -514,6 +569,37 @@ def insert_test(db, test_id, description, patient_id, test_score):
         db.execute(query, data)
     except Exception as ex:
         logger.error("Failed to execute insert query for test table")
+        raise ex
+        return False
+
+    return True
+
+def insert_emotion(db, patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness):
+    """insert row into the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting row into emotion table")
+
+    query = '''
+         INSERT INTO emotion (patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness)
+           VALUES (%s, %s, %s, %s, %s, %s, %s);
+    '''
+    data = (patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness)
+
+    try:
+        db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute insert query for emotion table")
         raise ex
         return False
 
@@ -684,6 +770,39 @@ def find_test_by_patient_id(db, patient_id):
     dicts = rows_to_dicts(result) 
     return dicts
 
+def find_emotion_by_patient_id(db, patient_id):
+    """find all rows in the emotion table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from the emotion table by patient_id")
+
+    query = '''
+         SELECT *
+           FROM emotion
+          WHERE patient_id = %s;
+    '''
+    data = (patient_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
 def find_by_gyro_id(db, gyro_id):
     """find all rows in a given table that match the given gyro_id
 
@@ -806,6 +925,39 @@ def find_by_test_id(db, test_id):
           WHERE test_id = %s;
     '''
     data = (test_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_by_dominant_emotion(db, dominant_emotion):
+    """find all rows in the emotion table that match the given dominant_emotion
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        dominant_emotion (string): dominant emotion
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from emotion table by dominant_emotion")
+
+    query = '''
+         SELECT *
+           FROM emotion
+          WHERE dominant_emotion = %s;
+    '''
+    data = (dominant_emotion)
 
     try:
         result = db.execute(query, data)
@@ -986,6 +1138,39 @@ def query_test_by_time(db, start_time, end_time):
     dicts = rows_to_dicts(result) 
     return dicts
 
+def query_emotion_by_time(db, start_time, end_time):
+    """find all rows in emotion table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from emotion table by time")
+
+    query = '''
+         SELECT *
+           FROM emotion
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
 
 
 # # # Find one functions are mainly for testing purposes, they are not optimized for performance # # #
@@ -1106,6 +1291,31 @@ def find_one_test(db):
     query = '''
          SELECT *
            FROM test;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
+    return dicts[randrange(len(dicts))]
+
+def find_one_emotion(db):
+    """find one random row in the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from emotion table")
+    query = '''
+         SELECT *
+           FROM emotion;
     '''
     try:
         result = db.execute(query)

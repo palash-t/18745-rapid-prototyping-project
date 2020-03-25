@@ -6,7 +6,8 @@ from database.database import get_db, \
 							  find_one_accel, \
 							  find_one_biometric, \
 							  find_one_game, \
-							  find_one_test
+							  find_one_test, \
+							  find_one_emotion
 
 
 @pytest.fixture
@@ -113,3 +114,8 @@ def test_desc():
 def test_score():
 	db = get_db()
 	return str(find_one_test(db)['test_score'])
+
+@pytest.fixture
+def dominant_emotion():
+	db = get_db()
+	return str(find_one_emotion(db)['dominant_emotion'])
