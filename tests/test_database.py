@@ -9,30 +9,36 @@ from database.database import get_db, \
 							  find_biometric_by_id, \
 							  find_game_by_id, \
 							  find_test_by_id, \
+							  find_emotion_by_id, \
 							  find_all_gyros, \
 							  find_all_accels, \
 							  find_all_biometric, \
 							  find_all_game, \
 							  find_all_test, \
+							  find_all_emotion, \
 							  insert_gyro, \
 							  insert_accel, \
 							  insert_biometric, \
 							  insert_game, \
 							  insert_test, \
+							  insert_emotion, \
 							  find_gyro_by_patient_id, \
 							  find_accels_by_patient_id, \
 							  find_biometric_by_patient_id, \
 							  find_game_by_patient_id, \
 							  find_test_by_patient_id, \
+							  find_emotion_by_patient_id, \
 							  find_by_gyro_id, \
 							  find_by_accel_id, \
 							  find_by_game_id, \
 							  find_by_test_id, \
+							  find_by_dominant_emotion, \
 							  query_gyros_by_time, \
 							  query_accels_by_time, \
 							  query_biometric_by_time, \
 							  query_game_by_time, \
-							  query_test_by_time
+							  query_test_by_time, \
+							  query_emotion_by_time
 
 @pytest.fixture
 def database():
@@ -178,6 +184,19 @@ def test_find_all_test(database):
 		assert result['patient_id'] is not None
 		assert result['test_score'] is not None
 
+def test_find_all_emotion(database):
+	results = find_all_emotion(database)
+	assert results is not None
+	for result in results:
+		assert result['id'] is not None
+		assert result['patient_id'] is not None
+		assert result['dominant_emotion'] is not None
+		assert result['neutral'] is not None
+		assert result['anger'] is not None
+		assert result['happiness'] is not None
+		assert result['surprise'] is not None
+		assert result['sadness'] is not None
+
 def test_insert_gyro(database):
 	gyro_id = uuid.uuid4()
 	gyro_description = "test gyro insert"
@@ -264,7 +283,27 @@ def test_insert_test(database, test_id, test_desc, patient_id, test_score):
 			assert result['description'] == test_desc
 			assert result['test_score'] == test_score
 
-	assert insert_test(database, test_id, test_desc, patient_id, test_score) is True
+def test_insert_emotion(database):
+	patient_id = uuid.uuid4()
+	dominant_emotion = "anger"
+	neutral = 0.3
+	anger = 0.4
+	happiness = 0.1
+	surprise = 0.1
+	sadness = 0.1
+
+	assert insert_emotion(database, patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness) is True
+
+	results = find_emotion_by_patient_id(database, patient_id)
+	assert results is not None
+	for result in results:
+		if result['dominant_emotion'] == dominant_emotion:
+			assert result['patient_id'] == patient_id
+			assert float(result['neutral']) == neutral
+			assert float(result['anger']) == anger
+			assert float(result['happiness']) == happiness
+			assert float(result['surprise']) == surprise
+			assert float(result['sadness']) == sadness
 
 def test_find_gyro_by_patient_id(database, patient_id):
 	results = find_gyro_by_patient_id(database, patient_id)
@@ -320,6 +359,19 @@ def test_find_test_by_patient_id(database, patient_id):
 		assert str(result['patient_id']) == patient_id
 		assert result['test_score'] is not None
 
+def test_find_emotion_by_patient_id(database, patient_id):
+	results = find_emotion_by_patient_id(database, patient_id)
+	assert results is not None
+	for result in results:
+		assert result['patient_id'] is not None
+		assert result['dominant_emotion'] is not None
+		assert result['neutral'] is not None
+		assert result['anger'] is not None
+		assert result['happiness'] is not None
+		assert result['surprise'] is not None
+		assert result['sadness'] is not None
+		assert str(result['patient_id']) == patient_id
+
 def test_find_by_gyro_id(database, gyro_id):
 	results = find_by_gyro_id(database, gyro_id)
 	assert results is not None
@@ -365,6 +417,19 @@ def test_find_by_test_id(database, test_id):
 		assert result['patient_id'] is not None
 		assert result['test_score'] is not None
 
+def test_find_by_dominant_emotion(database, dominant_emotion):
+	results = find_by_dominant_emotion(database, dominant_emotion)
+	assert results is not None
+	for result in results:
+		assert result['patient_id'] is not None
+		assert result['dominant_emotion'] == dominant_emotion
+		assert result['neutral'] is not None
+		assert result['anger'] is not None
+		assert result['happiness'] is not None
+		assert result['surprise'] is not None
+		assert result['sadness'] is not None
+		assert result['patient_id'] is not None
+
 def test_query_gyros_by_time(database):
 	# This time frame should return all results in the table
 	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
@@ -393,8 +458,8 @@ def test_query_accels_by_time(database):
 	results = query_accels_by_time(database, start_time, end_time)
 	assert results is not None
 
-	all_gyros = find_all_accels(database)
-	assert len(all_gyros) == len(results)
+	all_accels = find_all_accels(database)
+	assert len(all_accels) == len(results)
 
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 
@@ -413,8 +478,8 @@ def test_query_biometric_by_time(database):
 	results = query_biometric_by_time(database, start_time, end_time)
 	assert results is not None
 
-	all_gyros = find_all_biometric(database)
-	assert len(all_gyros) == len(results)
+	all_biometric = find_all_biometric(database)
+	assert len(all_biometric) == len(results)
 
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 
@@ -433,8 +498,8 @@ def test_query_game_by_time(database):
 	results = query_game_by_time(database, start_time, end_time)
 	assert results is not None
 
-	all_gyros = find_all_game(database)
-	assert len(all_gyros) == len(results)
+	all_games = find_all_game(database)
+	assert len(all_games) == len(results)
 
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 
@@ -453,8 +518,8 @@ def test_query_test_by_time(database):
 	results = query_test_by_time(database, start_time, end_time)
 	assert results is not None
 
-	all_gyros = find_all_test(database)
-	assert len(all_gyros) == len(results)
+	all_tests = find_all_test(database)
+	assert len(all_tests) == len(results)
 
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 
@@ -463,4 +528,24 @@ def test_query_test_by_time(database):
 	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
 	end_time = str(datetime.datetime(2016, 3, 18, 16, 19, 6, 204031))
 	results = query_test_by_time(database, start_time, end_time)
+	assert results == []
+
+def test_query_emotion_by_time(database):
+	# This time frame should return all results in the table
+	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
+	end_time = str(datetime.datetime(2025, 3, 18, 16, 19, 6, 204031))
+
+	results = query_emotion_by_time(database, start_time, end_time)
+	assert results is not None
+
+	all_emotion = find_all_emotion(database)
+	assert len(all_emotion) == len(results)
+
+	assert results[0]['id'] is not None
+	assert results[0]['patient_id'] is not None 
+
+	# This time frame should return no results
+	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
+	end_time = str(datetime.datetime(2016, 3, 18, 16, 19, 6, 204031))
+	results = query_emotion_by_time(database, start_time, end_time)
 	assert results == []

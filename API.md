@@ -68,6 +68,18 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### find_emotion_by_id(db, id):
+    """find one row in the emotion table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (uuid): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
 ### find_all_gyros(db):
     """find all rows in the gyros table
 
@@ -114,6 +126,17 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_all_test(db):
     """find all rows in the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_emotion(db):
+    """find all rows in the emotion table
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -173,6 +196,17 @@ API that handles the interfacing of data and the postgresql database server
     Args:
         db (slqalchemy.engine): the database engine
         all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_emotion(db, patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness):
+    """insert row into the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
 
     Returns:
             true on success, false on failure
@@ -238,6 +272,18 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### find_emotiontest_by_patient_id(db, patient_id):
+    """find all rows in the emotion table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
 ### find_by_gyro_id(db, gyro_id):
     """find all rows in a given table that match the given gyro_id
 
@@ -280,6 +326,18 @@ API that handles the interfacing of data and the postgresql database server
     Args:
         db (slqalchemy.engine): the database engine
         test_id (str(uuid)): id of the given test
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_by_dominant_emotion(db, dominant_emotion):
+    """find all rows in the emotion table that match the given dominant_emotion
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        dominant_emotion (string): dominant emotion
 
     Returns:
         list(dicts) | []: Dicts with column names as keys. If no rows,
@@ -351,6 +409,18 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### query_emotion_by_time(db, start_time, end_time):
+    """find all rows in emotion table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
 
 ## Find one functions are mainly for testing purposes, they are not optimized for performance, but can still be used in production
 
@@ -400,6 +470,17 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_one_test(db):
     """find one random row in the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### def find_one_emotion(db):
+    """find one random row in the emotion table
 
     Args:
         db (slqalchemy.engine): the database engine
