@@ -29,6 +29,12 @@ tasks:
       - |
         PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --schema-only --file=database/seeds/init_engine_db.sql
 
+  dump-data:
+    desc: Dump the engine_db
+    cmds: 
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --file=database/seeds/engine_db_data.sql
+  
   seed-test-data:
     desc: Seeds local postgres database with test data
     cmds:
