@@ -605,6 +605,36 @@ def insert_emotion(db, patient_id, dominant_emotion, neutral, anger, happiness, 
 
     return True
 
+def insert_many_gyros(db, rows):
+    """insert many rows into the gyros table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into gyros table", len(rows))
+
+    query = '''
+         INSERT INTO gyros (gyro_id, description, patient_id, x, y, z)
+           VALUES (%(gyro_id)s, %(description)s, %(patient_id)s, %(x)s, %(y)s, %(z)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for gyros table")
+        raise ex
+        return False
+
+    return True
+
 def find_gyro_by_patient_id(db, patient_id):
     """find all rows in the gyros table that matches the given patient_id
 

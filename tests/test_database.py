@@ -22,6 +22,7 @@ from database.database import get_db, \
 							  insert_game, \
 							  insert_test, \
 							  insert_emotion, \
+							  insert_many_gyros, \
 							  find_gyro_by_patient_id, \
 							  find_accels_by_patient_id, \
 							  find_biometric_by_patient_id, \
@@ -304,6 +305,34 @@ def test_insert_emotion(database):
 			assert float(result['happiness']) == happiness
 			assert float(result['surprise']) == surprise
 			assert float(result['sadness']) == sadness
+
+def test_insert_many_gyros(database, many_gyros):
+
+	gyro_id = many_gyros[1]["gyro_id"]
+	description = many_gyros[1]["description"]
+	patient_id = many_gyros[0]["patient_id"]
+	x = many_gyros[0]["x"]
+	y = many_gyros[0]["y"]
+	z = many_gyros[0]["z"]
+	
+	num_gyros = len(find_all_gyros(database))
+
+	num_added_gyros = len(many_gyros)
+
+	assert insert_many_gyros(database, many_gyros) is True
+
+	new_num_gyros = len(find_all_gyros(database))
+
+	assert new_num_gyros == num_gyros + num_added_gyros
+
+	results = find_by_gyro_id(database, gyro_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['description'] == description
+			assert result['patient_id'] == patient_id
+			assert result['x'] == x
+			assert result['y'] == y
+			assert result['z'] == z
 
 def test_find_gyro_by_patient_id(database, patient_id):
 	results = find_gyro_by_patient_id(database, patient_id)
