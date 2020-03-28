@@ -179,7 +179,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_game(db, game_id, description, patient_id, game_score, time_played)
+### insert_game(db, game_id, description, patient_id, left_hand_score, right_hand_score, time_played)
     """insert row into the game table
 
     Args:

@@ -512,7 +512,7 @@ def insert_biometric(db, patient_id, heart_rate, blood_pressure):
 
     return True
 
-def insert_game(db, game_id, description, patient_id, game_score, time_played):
+def insert_game(db, game_id, description, patient_id, left_hand_score, right_hand_score, time_played):
     """insert row into the game table
 
     Args:
@@ -529,10 +529,10 @@ def insert_game(db, game_id, description, patient_id, game_score, time_played):
     logger.info("Inserting row into game table")
 
     query = '''
-         INSERT INTO game (game_id, description, patient_id, game_score, time_played)
-           VALUES (%s, %s, %s, %s, %s);
+         INSERT INTO game (game_id, description, patient_id, left_hand_score, right_hand_score, time_played)
+           VALUES (%s, %s, %s, %s, %s, %s);
     '''
-    data = (game_id, description, patient_id, game_score, time_played)
+    data = (game_id, description, patient_id, left_hand_score, right_hand_score, time_played)
 
     try:
         db.execute(query, data)

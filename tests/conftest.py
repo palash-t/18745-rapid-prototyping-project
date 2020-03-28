@@ -91,9 +91,14 @@ def game_desc():
 	return str(find_one_game(db)['description'])
 
 @pytest.fixture
-def game_score():
+def left_hand_score():
 	db = get_db()
-	return str(find_one_game(db)['game_score'])
+	return str(find_one_game(db)['left_hand_score'])
+
+@pytest.fixture
+def right_hand_score():
+	db = get_db()
+	return str(find_one_game(db)['right_hand_score'])
 
 @pytest.fixture
 def time_played():

@@ -107,14 +107,16 @@ def test_find_game_by_id(database, game_id):
 	assert str(result_game_id) == game_id
 	result_description = result['description']
 	result_patient_id = result['patient_id']
-	result_game_score = result['game_score']
+	result_left_hand_score = result['left_hand_score']
+	result_right_hand_score = result['right_hand_score']
 	result_time_played = result['time_played']
 
 	game = find_game_by_id(database, result_id)
 	assert game['id'] == result_id
 	assert game['patient_id'] == result_patient_id
 	assert game['description'] == result_description
-	assert game['game_score'] == result_game_score
+	assert game['right_hand_score'] == result_right_hand_score
+	assert game['left_hand_score'] == result_left_hand_score
 	assert game['time_played'] == result_time_played
 
 def test_find_test_by_id(database, test_id):
@@ -172,7 +174,8 @@ def test_find_all_game(database):
 		assert result['id'] is not None
 		assert result["description"] is not None
 		assert result['patient_id'] is not None
-		assert result['game_score'] is not None
+		assert result['right_hand_score'] is not None
+		assert result['left_hand_score'] is not None
 		assert result['time_played'] is not None
 
 def test_find_all_test(database):
@@ -253,10 +256,11 @@ def test_insert_game(database):
 	game_id = uuid.uuid4()
 	patient_id = uuid.uuid4()
 	game_desc = "this is a cool test game"
-	game_score = 11
+	right_hand_score = 11
+	left_hand_score = 33
 	time_played = 65
 
-	assert insert_game(database, game_id, game_desc, patient_id, game_score, time_played) is True
+	assert insert_game(database, game_id, game_desc, patient_id, left_hand_score, right_hand_score, time_played) is True
 
 	results = find_by_game_id(database, game_id)
 	assert results is not None
@@ -264,7 +268,8 @@ def test_insert_game(database):
 		if result['game_id'] == game_id:
 			assert result['patient_id'] == patient_id
 			assert result['description'] == game_desc
-			assert result['game_score'] == game_score
+			assert result['left_hand_score'] == left_hand_score
+			assert result['right_hand_score'] == right_hand_score
 			assert result['time_played'] == time_played
 
 def test_insert_test(database, test_id, test_desc, patient_id, test_score):
@@ -346,7 +351,8 @@ def test_find_game_by_patient_id(database, patient_id):
 		assert result['game_id'] is not None
 		assert result["description"] is not None
 		assert str(result['patient_id']) == patient_id
-		assert result['game_score'] is not None
+		assert result['left_hand_score'] is not None
+		assert result['right_hand_score'] is not None
 		assert result['time_played'] is not None
 
 def test_find_test_by_patient_id(database, patient_id):
@@ -404,7 +410,8 @@ def test_find_by_game_id(database, game_id):
 		assert str(result['game_id']) == game_id
 		assert result["description"] is not None
 		assert result['patient_id'] is not None
-		assert result['game_score'] is not None
+		assert result['left_hand_score'] is not None
+		assert result['right_hand_score'] is not None
 		assert result['time_played'] is not None
 
 def test_find_by_test_id(database, test_id):

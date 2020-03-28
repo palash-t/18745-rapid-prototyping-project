@@ -191,15 +191,24 @@
     },
     "additionalProperties": false
   }
-"game_score": {
-    "definition": "The patient score in the game",
+"left_hand_score": {
+    "definition": "The patient's left hand score in the game",
     "type": "int",
     "minimum": 0,
     "properties": {
         "required": true
     },
     "additionalProperties": false
-},
+}
+"right_hand_score": {
+    "definition": "The patient's right hand score in the game",
+    "type": "int",
+    "minimum": 0,
+    "properties": {
+        "required": true
+    },
+    "additionalProperties": false
+}
 "game_time_played": {
     "definition": "The patient time played in the game in seconds",
     "type": "int",
