@@ -23,6 +23,11 @@ from database.database import get_db, \
 							  insert_test, \
 							  insert_emotion, \
 							  insert_many_gyros, \
+							  insert_many_accels, \
+							  insert_many_biometric, \
+							  insert_many_game, \
+							  insert_many_test, \
+							  insert_many_emption, \
 							  find_gyro_by_patient_id, \
 							  find_accels_by_patient_id, \
 							  find_biometric_by_patient_id, \
@@ -338,6 +343,140 @@ def test_insert_many_gyros(database, many_gyros):
 			assert result['x'] == x
 			assert result['y'] == y
 			assert result['z'] == z
+
+def test_insert_many_accels(database, many_accels):
+
+	accel_id = many_accels[1]["accel_id"]
+	description = many_accels[1]["description"]
+	patient_id = many_accels[0]["patient_id"]
+	x = many_accels[0]["x"]
+	y = many_accels[0]["y"]
+	z = many_accels[0]["z"]
+	
+	num_accels = len(find_all_accels(database))
+
+	num_added_accels = len(many_accels)
+
+	assert insert_many_accels(database, many_accels) is True
+
+	new_num_accels = len(find_all_accels(database))
+
+	assert new_num_accels == num_accels + num_added_accels
+
+	results = find_by_accel_id(database, accel_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['description'] == description
+			assert result['patient_id'] == patient_id
+			assert result['x'] == x
+			assert result['y'] == y
+			assert result['z'] == z
+
+def test_insert_many_biometric(database, many_biometric):
+
+	patient_id = many_biometric[0]["patient_id"]
+	heart_rate = many_biometric[1]["heart_rate"]
+	blood_pressure = many_biometric[0]["blood_pressure"]
+	
+	num_biometric = len(find_all_biometric(database))
+
+	num_added_biometric = len(many_biometric)
+
+	assert insert_many_biometric(database, many_biometric) is True
+
+	new_num_biometric = len(find_all_biometric(database))
+
+	assert new_num_biometric == num_biometric + num_added_biometric
+
+	results = find_biometric_by_patient_id(database, patient_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['heart_rate'] == heart_rate
+			assert result['blood_pressure'] == blood_pressure
+			
+def test_insert_many_game(database, many_game):
+
+	game_id = many_game[1]["game_id"]
+	description = many_game[1]["description"]
+	patient_id = many_game[0]["patient_id"]
+	left_hand_score = many_game[0]["left_hand_score"]
+	right_hand_score = many_game[0]["right_hand_score"]
+	time_played = many_game[0]["time_played"]
+	
+	num_game = len(find_all_game(database))
+
+	num_added_game = len(many_game)
+
+	assert insert_many_game(database, many_game) is True
+
+	new_num_game = len(find_all_game(database))
+
+	assert new_num_game == num_game + num_added_game
+
+	results = find_by_game_id(database, game_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['game_id'] == game_id
+			assert result['patient_id'] == patient_id
+			assert result['left_hand_score'] == left_hand_score
+			assert result['right_hand_score'] == right_hand_score
+			assert result['time_played'] == time_played
+
+def test_insert_many_test(database, many_test):
+
+	test_id = many_test[1]["test_id"]
+	description = many_test[1]["description"]
+	patient_id = many_test[0]["patient_id"]
+	test_score = many_test[0]["test_score"]
+	
+	num_test = len(find_all_test(database))
+
+	num_added_test = len(many_game)
+
+	assert insert_many_test(database, many_test) is True
+
+	new_num_test = len(find_all_test(database))
+
+	assert new_num_test == num_test + num_added_test
+
+	results = find_by_test_id(database, test_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['test_id'] == test_id
+			assert result['description'] == description
+			assert result['patient_id'] == patient_id
+			assert result['test_score'] == test_score
+
+def test_insert_many_emotion(database, many_emotion):
+
+	patient_id = many_emotion[1]["patient_id"]
+	dominant_emotion = many_emotion[1]["dominant_emotion"]
+	neutral = many_emotion[0]["neutral"]
+	anger = many_emotion[0]["anger"]
+	happiness = many_emotion[0]["happiness"]
+	surprise = many_emotion[0]["surprise"]
+	sadness = many_emotion[0]["sadness"]
+	
+	num_emotion = len(find_all_emotion(database))
+
+	num_added_emotion = len(many_emotion)
+
+	assert insert_many_emption(database, many_emotion) is True
+
+	new_num_emotion = len(find_all_emotion(database))
+
+	assert new_num_emotion == num_emotion + num_added_emotion
+
+	results = find_emotion_by_patient_id(database, patient_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['dominant_emotion'] == dominant_emotion
+			assert result['neutral'] == neutral
+			assert result['anger'] == anger
+			assert result['happiness'] == happiness
+			assert result['surprise'] == surprise
+			assert result['sadness'] == sadness
+
 
 def test_find_gyro_by_patient_id(database, patient_id):
 	results = find_gyro_by_patient_id(database, patient_id)

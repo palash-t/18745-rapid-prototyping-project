@@ -635,6 +635,156 @@ def insert_many_gyros(db, rows):
 
     return True
 
+def insert_many_accel(db, rows):
+    """insert many rows into the accel table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into accel table", len(rows))
+
+    query = '''
+         INSERT INTO accels (accel_id, description, patient_id, x, y, z)
+           VALUES (%(accel_id)s, %(description)s, %(patient_id)s, %(x)s, %(y)s, %(z)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for accel table")
+        raise ex
+        return False
+
+    return True
+
+def insert_many_biometric(db, rows):
+    """insert many rows into the biometric table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into biometric table", len(rows))
+
+    query = '''
+         INSERT INTO biometric (patient_id, heart_rate, blood_pressure)
+           VALUES (%(patient_id)s, %(heart_rate)s, %(blood_pressure)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for biometric table")
+        raise ex
+        return False
+
+    return True
+
+def insert_many_game(db, rows):
+    """insert many rows into the game table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into game table", len(rows))
+
+    query = '''
+         INSERT INTO game (game_id, description, patient_id, left_hand_score, right_hand_score, time_played)
+           VALUES (%(game_id)s, %(description)s, %(patient_id)s, %(left_hand_score)s, %(right_hand_score)s, %(time_played)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for game table")
+        raise ex
+        return False
+
+    return True
+
+def insert_many_test(db, rows):
+    """insert many rows into the test table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into test table", len(rows))
+
+    query = '''
+         INSERT INTO test (test_id, description, patient_id, test_score)
+           VALUES (%(test_id)s, %(description)s, %(patient_id)s, %(test_score)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for test table")
+        raise ex
+        return False
+
+    return True
+
+def insert_many_emotion(db, rows):
+    """insert many rows into the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into emotion table", len(rows))
+
+    query = '''
+         INSERT INTO emotion (patient_id, dominant_emotion, neutral, anger, happiness, surprise, sadness)
+           VALUES (%(patient_id)s, %(dominant_emotion)s, %(neutral)s, %(anger)s, %(happiness)s, %(surprise)s, %(sadness)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for emotion table")
+        raise ex
+        return False
+
+    return True
+
 def find_gyro_by_patient_id(db, patient_id):
     """find all rows in the gyros table that matches the given patient_id
 
