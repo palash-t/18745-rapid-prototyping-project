@@ -162,3 +162,173 @@ def many_gyros():
 	}]
 
 	return data
+
+@pytest.fixture
+def many_accels():
+	data = [{
+		"accel_id": uuid.uuid4(),
+		"description": "test1",
+		"patient_id": uuid.uuid4(),
+		"x": 7,
+		"y": 89,
+		"z": 3
+	},
+	{
+		"accel_id": uuid.uuid4(),
+		"description": "test2",
+		"patient_id": uuid.uuid4(),
+		"x": 6,
+		"y": 3,
+		"z": 2
+	},
+	{
+		"accel_id": uuid.uuid4(),
+		"description": "test3",
+		"patient_id": uuid.uuid4(),
+		"x": 420,
+		"y": 45,
+		"z": 1
+	},
+	{
+		"accel_id": uuid.uuid4(),
+		"description": "test4",
+		"patient_id": uuid.uuid4(),
+		"x": 3,
+		"y": 75,
+		"z": 12
+	}]
+
+	return data
+
+@pytest.fixture
+def many_biometric():
+	data = [{
+		"patient_id": uuid.uuid4(),
+		"heart_rate": 120,
+		"blood_pressure": 140
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"heart_rate": 100,
+		"blood_pressure": 120
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"heart_rate": 90,
+		"blood_pressure": 140
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"heart_rate": 120,
+		"blood_pressure": 105
+	}]
+
+	return data
+
+@pytest.fixture
+def many_game():
+	data = [{
+		"game_id": uuid.uuid4(),
+		"description": "test1",
+		"patient_id": uuid.uuid4(),
+		"left_hand_score": 140,
+		"right_hand_score": 99,
+		"time_played": 50
+	},
+	{
+		"game_id": uuid.uuid4(),
+		"description": "test2",
+		"patient_id": uuid.uuid4(),
+		"left_hand_score": 50,
+		"right_hand_score": 99,
+		"time_played": 100
+	},
+	{
+		"game_id": uuid.uuid4(),
+		"description": "test3",
+		"patient_id": uuid.uuid4(),
+		"left_hand_score": 80,
+		"right_hand_score": 199,
+		"time_played": 30
+	},
+	{
+		"game_id": uuid.uuid4(),
+		"description": "test4",
+		"patient_id": uuid.uuid4(),
+		"left_hand_score": 65,
+		"right_hand_score": 90,
+		"time_played": 80
+	}]
+
+	return data
+
+@pytest.fixture
+def many_test():
+	data = [{
+		"test_id": uuid.uuid4(),
+		"description": "test1",
+		"patient_id": uuid.uuid4(),
+		"test_score": 140
+	},
+	{
+		"test_id": uuid.uuid4(),
+		"description": "test2",
+		"patient_id": uuid.uuid4(),
+		"test_score": 99
+	},
+	{
+		"test_id": uuid.uuid4(),
+		"description": "test3",
+		"patient_id": uuid.uuid4(),
+		"test_score": 50
+	},
+	{
+		"test_id": uuid.uuid4(),
+		"description": "test4",
+		"patient_id": uuid.uuid4(),
+		"test_score": 69
+	}]
+
+	return data
+
+@pytest.fixture
+def many_emotion():
+	data = [{
+		"patient_id": uuid.uuid4(),
+		"dominant_emotion": "anger",
+		"neutral": 0.1,
+		"anger": 0.2,
+		"happiness": 0.5,
+		"surprise": 0.6,
+		"sadness": 0.7
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"dominant_emotion": "sadness",
+		"neutral": 0.3,
+		"anger": 0.4,
+		"happiness": 0.8,
+		"surprise": 0.2,
+		"sadness": 0.1
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"dominant_emotion": "sadness",
+		"neutral": 0.3,
+		"anger": 0.7,
+		"happiness": 0.1,
+		"surprise": 0.2,
+		"sadness": 0.9
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"dominant_emotion": "happiness",
+		"neutral": 0.8,
+		"anger": 0.1,
+		"happiness": 0.3,
+		"surprise": 0.2,
+		"sadness": 0.9
+	}]
+	
+	return data
+
