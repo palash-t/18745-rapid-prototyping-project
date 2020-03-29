@@ -320,10 +320,10 @@ def test_insert_many_gyros(database, many_gyros):
 
 	gyro_id = many_gyros[1]["gyro_id"]
 	description = many_gyros[1]["description"]
-	patient_id = many_gyros[0]["patient_id"]
-	x = many_gyros[0]["x"]
-	y = many_gyros[0]["y"]
-	z = many_gyros[0]["z"]
+	patient_id = many_gyros[1]["patient_id"]
+	x = many_gyros[1]["x"]
+	y = many_gyros[1]["y"]
+	z = many_gyros[1]["z"]
 	
 	num_gyros = len(find_all_gyros(database))
 
@@ -348,10 +348,10 @@ def test_insert_many_accels(database, many_accels):
 
 	accel_id = many_accels[1]["accel_id"]
 	description = many_accels[1]["description"]
-	patient_id = many_accels[0]["patient_id"]
-	x = many_accels[0]["x"]
-	y = many_accels[0]["y"]
-	z = many_accels[0]["z"]
+	patient_id = many_accels[1]["patient_id"]
+	x = many_accels[1]["x"]
+	y = many_accels[1]["y"]
+	z = many_accels[1]["z"]
 	
 	num_accels = len(find_all_accels(database))
 
@@ -374,9 +374,9 @@ def test_insert_many_accels(database, many_accels):
 
 def test_insert_many_biometric(database, many_biometric):
 
-	patient_id = many_biometric[0]["patient_id"]
+	patient_id = many_biometric[1]["patient_id"]
 	heart_rate = many_biometric[1]["heart_rate"]
-	blood_pressure = many_biometric[0]["blood_pressure"]
+	blood_pressure = many_biometric[1]["blood_pressure"]
 	
 	num_biometric = len(find_all_biometric(database))
 
@@ -398,10 +398,10 @@ def test_insert_many_game(database, many_game):
 
 	game_id = many_game[1]["game_id"]
 	description = many_game[1]["description"]
-	patient_id = many_game[0]["patient_id"]
-	left_hand_score = many_game[0]["left_hand_score"]
-	right_hand_score = many_game[0]["right_hand_score"]
-	time_played = many_game[0]["time_played"]
+	patient_id = many_game[1]["patient_id"]
+	left_hand_score = many_game[1]["left_hand_score"]
+	right_hand_score = many_game[1]["right_hand_score"]
+	time_played = many_game[1]["time_played"]
 	
 	num_game = len(find_all_game(database))
 
@@ -426,8 +426,8 @@ def test_insert_many_test(database, many_test):
 
 	test_id = many_test[1]["test_id"]
 	description = many_test[1]["description"]
-	patient_id = many_test[0]["patient_id"]
-	test_score = many_test[0]["test_score"]
+	patient_id = many_test[1]["patient_id"]
+	test_score = many_test[1]["test_score"]
 	
 	num_test = len(find_all_test(database))
 
@@ -451,11 +451,11 @@ def test_insert_many_emotion(database, many_emotion):
 
 	patient_id = many_emotion[1]["patient_id"]
 	dominant_emotion = many_emotion[1]["dominant_emotion"]
-	neutral = many_emotion[0]["neutral"]
-	anger = many_emotion[0]["anger"]
-	happiness = many_emotion[0]["happiness"]
-	surprise = many_emotion[0]["surprise"]
-	sadness = many_emotion[0]["sadness"]
+	neutral = many_emotion[1]["neutral"]
+	anger = many_emotion[1]["anger"]
+	happiness = many_emotion[1]["happiness"]
+	surprise = many_emotion[1]["surprise"]
+	sadness = many_emotion[1]["sadness"]
 	
 	num_emotion = len(find_all_emotion(database))
 
