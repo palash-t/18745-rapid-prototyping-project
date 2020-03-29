@@ -212,6 +212,17 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
+### insert_many_gyros(db, rows):
+    """insert many rows into the gyros table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+
 ### find_gyro_by_patient_id(db, patient_id)
     """find all rows in the gyros table that matches the given patient_id
 

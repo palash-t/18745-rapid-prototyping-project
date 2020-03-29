@@ -1,6 +1,7 @@
 # !/usr/bin/env python
 
 import pytest
+import uuid
 from database.database import get_db, \
 							  find_one_gyro, \
 							  find_one_accel, \
@@ -124,3 +125,40 @@ def test_score():
 def dominant_emotion():
 	db = get_db()
 	return str(find_one_emotion(db)['dominant_emotion'])
+
+@pytest.fixture
+def many_gyros():
+	data = [{
+		"gyro_id": uuid.uuid4(),
+		"description": "test1",
+		"patient_id": uuid.uuid4(),
+		"x": 7,
+		"y": 89,
+		"z": 3
+	},
+	{
+		"gyro_id": uuid.uuid4(),
+		"description": "test2",
+		"patient_id": uuid.uuid4(),
+		"x": 6,
+		"y": 3,
+		"z": 2
+	},
+	{
+		"gyro_id": uuid.uuid4(),
+		"description": "test3",
+		"patient_id": uuid.uuid4(),
+		"x": 420,
+		"y": 45,
+		"z": 1
+	},
+	{
+		"gyro_id": uuid.uuid4(),
+		"description": "test4",
+		"patient_id": uuid.uuid4(),
+		"x": 3,
+		"y": 75,
+		"z": 12
+	}]
+
+	return data
