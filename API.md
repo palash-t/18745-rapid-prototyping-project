@@ -223,7 +223,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_accel(db, rows):
+### insert_many_accels(db, rows):
     """insert many rows into the accel table
 
     Args:
@@ -234,7 +234,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_biometric(db, rows):
+### insert_many_biometrics(db, rows):
     """insert many rows into the biometric table
 
     Args:
@@ -245,7 +245,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_game(db, rows):
+### insert_many_games(db, rows):
     """insert many rows into the game table
 
     Args:
@@ -256,7 +256,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_test(db, rows):
+### insert_many_tests(db, rows):
     """insert many rows into the test table
 
     Args:
@@ -267,7 +267,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_emotion(db, rows):
+### insert_many_emotions(db, rows):
     """insert many rows into the emotion table
 
     Args:

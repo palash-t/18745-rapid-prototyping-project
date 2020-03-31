@@ -201,7 +201,7 @@ def many_accels():
 	return data
 
 @pytest.fixture
-def many_biometric():
+def many_biometrics():
 	data = [{
 		"patient_id": uuid.uuid4(),
 		"heart_rate": 120,
@@ -226,7 +226,7 @@ def many_biometric():
 	return data
 
 @pytest.fixture
-def many_game():
+def many_games():
 	data = [{
 		"game_id": uuid.uuid4(),
 		"description": "test1",
@@ -263,7 +263,7 @@ def many_game():
 	return data
 
 @pytest.fixture
-def many_test():
+def many_tests():
 	data = [{
 		"test_id": uuid.uuid4(),
 		"description": "test1",
@@ -292,7 +292,7 @@ def many_test():
 	return data
 
 @pytest.fixture
-def many_emotion():
+def many_emotions():
 	data = [{
 		"patient_id": uuid.uuid4(),
 		"dominant_emotion": "anger",
