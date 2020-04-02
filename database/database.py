@@ -269,6 +269,37 @@ def find_emotion_by_id(db, _id):
         raise ex
     return single_row_to_dict(result)
 
+def find_personal_check_in_by_id(db, id):
+    """find one row in the personal_check_in table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching one row from the personal_check_in table")
+
+    query = '''
+         SELECT *
+           FROM personal_check_in
+          WHERE id = %s;
+    '''
+    data = (_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    return single_row_to_dict(result)
+
 def find_all_gyros(db):
     """find all rows in the gyros table
 
@@ -410,6 +441,31 @@ def find_all_emotion(db):
     query = '''
          SELECT *
            FROM emotion;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
+    return dicts
+
+def find_all_personal_check_in(db):
+    """find all rows in the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching all rows from personal_check_in table")
+    query = '''
+         SELECT *
+           FROM personal_check_in;
     '''
     try:
         result = db.execute(query)
@@ -605,6 +661,37 @@ def insert_emotion(db, patient_id, dominant_emotion, neutral, anger, happiness, 
 
     return True
 
+def insert_personal_check_in(db, patient_id, category, value):
+    """insert row into the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting row into personal_check_in table")
+
+    query = '''
+         INSERT INTO personal_check_in (patient_id, category, value)
+           VALUES (%s, %s, %s);
+    '''
+    data = (patient_id, category, value)
+
+    try:
+        db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute insert query for personal_check_in table")
+        raise ex
+        return False
+
+    return True
+
 def insert_many_gyros(db, rows):
     """insert many rows into the gyros table
 
@@ -780,6 +867,36 @@ def insert_many_emotions(db, rows):
         db.execute(query, rows)
     except Exception as ex:
         logger.error("Failed to execute insert many query for emotion table")
+        raise ex
+        return False
+
+    return True
+
+def insert_many_personal_check_ins(db, rows):
+    """insert many rows into the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into personal_check_in table", len(rows))
+
+    query = '''
+         INSERT INTO personal_check_in (patient_id, category, value)
+           VALUES (%(patient_id)s, %(category)s, %(value)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for personal_check_in table")
         raise ex
         return False
 
@@ -973,6 +1090,41 @@ def find_emotion_by_patient_id(db, patient_id):
           WHERE patient_id = %s;
     '''
     data = (patient_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_personal_check_in_by_patient_id_and_category(db, patient_id, category):
+    """find all rows in the personal_check_in table that matches the given patient_id and category
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+        category (str): string representing a category (i.e. "sports")
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from the personal_check_in table by patient_id and category")
+
+    query = '''
+         SELECT *
+           FROM emotion
+          WHERE patient_id = %s
+          AND category = %s;
+    '''
+    data = (patient_id, category)
 
     try:
         result = db.execute(query, data)
@@ -1352,6 +1504,39 @@ def query_emotion_by_time(db, start_time, end_time):
     dicts = rows_to_dicts(result) 
     return dicts
 
+def query_personal_check_in_by_time(db, start_time, end_time):
+    """find all rows in personal_check_in table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from personal_check_in table by time")
+
+    query = '''
+         SELECT *
+           FROM personal_check_in
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
 
 # # # Find one functions are mainly for testing purposes, they are not optimized for performance # # #
 
@@ -1496,6 +1681,31 @@ def find_one_emotion(db):
     query = '''
          SELECT *
            FROM emotion;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
+    return dicts[randrange(len(dicts))]
+
+def find_one_personal_check_in(db):
+    """find one random row in the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from personal_check_in table")
+    query = '''
+         SELECT *
+           FROM personal_check_in;
     '''
     try:
         result = db.execute(query)

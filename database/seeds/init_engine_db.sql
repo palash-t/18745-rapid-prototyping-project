@@ -5,7 +5,7 @@
 -- Dumped from database version 11.5
 -- Dumped by pg_dump version 12.2 (Ubuntu 12.2-2.pgdg18.04+1)
 
--- Started on 2020-04-01 21:10:31 EDT
+-- Started on 2020-04-01 21:33:29 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 2 (class 3079 OID 20393)
+-- TOC entry 2 (class 3079 OID 20720)
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -38,7 +38,7 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 SET default_tablespace = '';
 
 --
--- TOC entry 197 (class 1259 OID 20430)
+-- TOC entry 197 (class 1259 OID 20757)
 -- Name: accels; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -59,7 +59,7 @@ CREATE TABLE public.accels (
 ALTER TABLE public.accels OWNER TO postgres;
 
 --
--- TOC entry 198 (class 1259 OID 20438)
+-- TOC entry 198 (class 1259 OID 20765)
 -- Name: biometric; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -95,7 +95,7 @@ COMMENT ON COLUMN public.biometric.blood_pressure IS 'The blood pressure of the 
 
 
 --
--- TOC entry 199 (class 1259 OID 20446)
+-- TOC entry 199 (class 1259 OID 20773)
 -- Name: emotion; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -117,7 +117,7 @@ CREATE TABLE public.emotion (
 ALTER TABLE public.emotion OWNER TO postgres;
 
 --
--- TOC entry 200 (class 1259 OID 20454)
+-- TOC entry 200 (class 1259 OID 20781)
 -- Name: game; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -126,7 +126,8 @@ CREATE TABLE public.game (
     game_id uuid NOT NULL,
     description character varying(255) NOT NULL,
     patient_id uuid NOT NULL,
-    game_score integer,
+    left_hand_score integer,
+    right_hand_score integer,
     time_played integer,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone,
@@ -146,7 +147,7 @@ COMMENT ON COLUMN public.game.time_played IS 'Game time played in seconds';
 
 
 --
--- TOC entry 201 (class 1259 OID 20459)
+-- TOC entry 201 (class 1259 OID 20786)
 -- Name: gyros; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -167,7 +168,7 @@ CREATE TABLE public.gyros (
 ALTER TABLE public.gyros OWNER TO postgres;
 
 --
--- TOC entry 203 (class 1259 OID 20488)
+-- TOC entry 202 (class 1259 OID 20794)
 -- Name: personal_check_in; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -185,7 +186,7 @@ CREATE TABLE public.personal_check_in (
 ALTER TABLE public.personal_check_in OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 20467)
+-- TOC entry 203 (class 1259 OID 20802)
 -- Name: test; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -204,7 +205,7 @@ CREATE TABLE public.test (
 ALTER TABLE public.test OWNER TO postgres;
 
 --
--- TOC entry 3759 (class 2606 OID 20473)
+-- TOC entry 3759 (class 2606 OID 20808)
 -- Name: accels accels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -213,7 +214,7 @@ ALTER TABLE ONLY public.accels
 
 
 --
--- TOC entry 3763 (class 2606 OID 20475)
+-- TOC entry 3763 (class 2606 OID 20810)
 -- Name: biometric biometric_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -222,7 +223,7 @@ ALTER TABLE ONLY public.biometric
 
 
 --
--- TOC entry 3769 (class 2606 OID 20477)
+-- TOC entry 3769 (class 2606 OID 20812)
 -- Name: gyros gyros_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -231,7 +232,7 @@ ALTER TABLE ONLY public.gyros
 
 
 --
--- TOC entry 3773 (class 2606 OID 20479)
+-- TOC entry 3775 (class 2606 OID 20814)
 -- Name: test test_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -240,7 +241,7 @@ ALTER TABLE ONLY public.test
 
 
 --
--- TOC entry 3775 (class 2606 OID 20481)
+-- TOC entry 3777 (class 2606 OID 20816)
 -- Name: test unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -249,7 +250,7 @@ ALTER TABLE ONLY public.test
 
 
 --
--- TOC entry 3771 (class 2606 OID 20483)
+-- TOC entry 3771 (class 2606 OID 20818)
 -- Name: gyros unique_id; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -258,7 +259,7 @@ ALTER TABLE ONLY public.gyros
 
 
 --
--- TOC entry 3765 (class 2606 OID 20485)
+-- TOC entry 3765 (class 2606 OID 20820)
 -- Name: biometric unique_id_constraint; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -267,7 +268,7 @@ ALTER TABLE ONLY public.biometric
 
 
 --
--- TOC entry 3761 (class 2606 OID 20487)
+-- TOC entry 3761 (class 2606 OID 20822)
 -- Name: accels unique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -276,7 +277,7 @@ ALTER TABLE ONLY public.accels
 
 
 --
--- TOC entry 3767 (class 2606 OID 20497)
+-- TOC entry 3767 (class 2606 OID 20824)
 -- Name: emotion unique_pkey_emotion; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -285,7 +286,7 @@ ALTER TABLE ONLY public.emotion
 
 
 --
--- TOC entry 3777 (class 2606 OID 20499)
+-- TOC entry 3773 (class 2606 OID 20826)
 -- Name: personal_check_in unique_pkey_personal; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -305,7 +306,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2020-04-01 21:10:52 EDT
+-- Completed on 2020-04-01 21:33:50 EDT
 
 --
 -- PostgreSQL database dump complete

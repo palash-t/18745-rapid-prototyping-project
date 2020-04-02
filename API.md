@@ -338,7 +338,7 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
-### find_emotiontest_by_patient_id(db, patient_id)
+### find_emotion_by_patient_id(db, patient_id)
     """find all rows in the emotion table that matches the given patient_id
 
     Args:
@@ -554,51 +554,4 @@ API that handles the interfacing of data and the postgresql database server
     Returns:
         result(dict): Dict with column names as keys. If no row,
             an empty dict is returned.
-    """
-
-
-
-### find_all_personal_check_in(db)
-    """find all rows in the personal_check_in table
-
-    Args:
-        db (slqalchemy.engine): the database engine
-
-    Returns:
-        list(dicts) | []: Dicts with column names as keys. If no rows,
-            an empty list is returned.
-    """
-
-### find_personal_check_in_by_id(db, id)
-    """find one row in the personal_check_in table that matches the given primary key id
-
-    Args:
-        db (slqalchemy.engine): the database engine
-        _id (str(uuid)): unique id for row, same as the primary key
-
-    Returns:
-        result(dict): Dict with column names as keys. If no row,
-            an empty list is returned.
-    """
-
-### insert_personal_check_in(db, patient_id, category, value)
-    """insert row into the personal_check_in table
-
-    Args:
-        db (slqalchemy.engine): the database engine
-        all table columns
-
-    Returns:
-            true on success, false on failure
-    """
-
-### insert_many_gyros(db, rows):
-    """insert many rows into the gyros table
-
-    Args:
-        db (slqalchemy.engine): the database engine
-        rows list(dicts): a list of dictionaries, each dictionary represents a row.
-
-    Returns:
-            true on success, false on failure
     """

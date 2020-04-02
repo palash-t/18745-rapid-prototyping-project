@@ -34,7 +34,7 @@
             true on success, false on failure
     """
 
-### insert_many_personal_check_ins(db, rows):
+### insert_many_personal_check_ins(db, rows)
     """insert many rows into the personal_check_in table
 
     Args:
@@ -74,7 +74,7 @@
 
 ## Functions below this line are mainly for testing purposes, they are not optimized for performance, but can still be used in production
 
-### def find_one_personal_check_in(db)
+### find_one_personal_check_in(db)
     """find one random row in the personal_check_in table
 
     Args:
