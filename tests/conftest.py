@@ -127,6 +127,11 @@ def dominant_emotion():
 	return str(find_one_emotion(db)['dominant_emotion'])
 
 @pytest.fixture
+def category():
+	db = get_db()
+	return str(find_one_personal_check_in(db)['category'])
+
+@pytest.fixture
 def many_gyros():
 	data = [{
 		"gyro_id": uuid.uuid4(),
@@ -332,3 +337,27 @@ def many_emotions():
 	
 	return data
 
+@pytest.fixture
+def many_personal_check_ins():
+	data = [{
+		"patient_id": uuid.uuid4(),
+		"category": "food",
+		"value": "apple",
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"category": "food",
+		"value": "banana",
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"category": "car",
+		"value": "ford",
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"category": "car",
+		"value": "chevy",
+	}]
+	
+	return data
