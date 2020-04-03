@@ -132,6 +132,16 @@ def category():
 	return str(find_one_personal_check_in(db)['category'])
 
 @pytest.fixture
+def scheduled_time():
+	db = get_db()
+	return str(find_one_medication(db)['scheduled time'])
+
+@pytest.fixture
+def response():
+	db = get_db()
+	return str(find_one_medication(db)['response'])
+
+@pytest.fixture
 def many_gyros():
 	data = [{
 		"gyro_id": uuid.uuid4(),
@@ -358,6 +368,35 @@ def many_personal_check_ins():
 		"patient_id": uuid.uuid4(),
 		"category": "car",
 		"value": "chevy",
+	}]
+	
+	return data
+
+@pytest.fixture
+def many_medications():
+	data = [{
+		"patient_id": uuid.uuid4(),
+		"device_id": uuid.uuid4(),
+		"scheduled_time": "evening",
+		"response": true,
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"device_id": uuid.uuid4(),
+		"scheduled_time": "morning",
+		"response": false,
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"device_id": uuid.uuid4(),
+		"scheduled_time": "afternoon",
+		"response": true,
+	},
+	{
+		"patient_id": uuid.uuid4(),
+		"device_id": uuid.uuid4(),
+		"scheduled_time": "evening",
+		"response": true,
 	}]
 	
 	return data
