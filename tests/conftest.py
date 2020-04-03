@@ -133,16 +133,6 @@ def category():
 	return str(find_one_personal_check_in(db)['category'])
 
 @pytest.fixture
-def scheduled_time():
-	db = get_db()
-	return str(find_one_medication(db)['scheduled time'])
-
-@pytest.fixture
-def response():
-	db = get_db()
-	return str(find_one_medication(db)['response'])
-
-@pytest.fixture
 def medication_patient_id():
 	db = get_db()
 	return str(find_one_medication(db)['patient_id'])

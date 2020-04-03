@@ -558,7 +558,7 @@ API that handles the interfacing of data and the postgresql database server
     """
 
 ### query_medication_by_time(db, start_time, end_time)
-    """find all rows in emotion table that where recorded between a given start and end time
+    """find all rows in medication table that where recorded between a given start and end time
 
     Args:
         db (slqalchemy.engine): the database engine

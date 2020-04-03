@@ -559,15 +559,15 @@ def test_insert_many_medications(database, many_medications):
 	scheduled_time = many_medications[1]["scheduled_time"]
 	response = many_medications[1]["response"]
 	
-	num_test = len(find_all_test(database))
+	num_medications = len(find_all_medication(database))
 
-	num_added_test = len(many_tests)
+	num_added_medications = len(many_medications)
 
-	assert insert_many_medications(database, many_tests) is True
+	assert insert_many_medications(database, many_medications) is True
 
-	new_num_test = len(find_all_medication(database))
+	new_num_medications = len(find_all_medication(database))
 
-	assert new_num_test == num_test + num_added_test
+	assert new_num_medications == num_medications + num_added_medications
 
 	results = find_medication_by_patient_id(database, patient_id)
 	for result in results:

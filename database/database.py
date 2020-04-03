@@ -1267,7 +1267,7 @@ def find_medication_by_patient_id(db, patient_id):
 
     validate_db(db, 'engine_db')
 
-    logger.info("Fetching rows from the emotion table by patient_id")
+    logger.info("Fetching rows from the medication table by patient_id")
 
     query = '''
          SELECT *
