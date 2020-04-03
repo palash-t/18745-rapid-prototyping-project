@@ -10,30 +10,36 @@ from database.database import get_db, \
 							  find_game_by_id, \
 							  find_test_by_id, \
 							  find_emotion_by_id, \
+							  find_medication_by_id, \
 							  find_all_gyros, \
 							  find_all_accels, \
 							  find_all_biometric, \
 							  find_all_game, \
 							  find_all_test, \
 							  find_all_emotion, \
+							  find_all_medication, \
 							  insert_gyro, \
 							  insert_accel, \
 							  insert_biometric, \
 							  insert_game, \
 							  insert_test, \
 							  insert_emotion, \
+							  insert_medication, \
 							  insert_many_gyros, \
 							  insert_many_accels, \
 							  insert_many_biometrics, \
 							  insert_many_games, \
 							  insert_many_tests, \
 							  insert_many_emotions, \
+							  insert_many_medications, \
 							  find_gyro_by_patient_id, \
 							  find_accels_by_patient_id, \
 							  find_biometric_by_patient_id, \
 							  find_game_by_patient_id, \
 							  find_test_by_patient_id, \
 							  find_emotion_by_patient_id, \
+							  find_medication_by_patient_id, \
+							  find_medication_by_device_id, \
 							  find_by_gyro_id, \
 							  find_by_accel_id, \
 							  find_by_game_id, \
@@ -45,6 +51,7 @@ from database.database import get_db, \
 							  query_game_by_time, \
 							  query_test_by_time, \
 							  query_emotion_by_time, \
+							  query_medication_by_time, \
 							  find_all_personal_check_in, \
 							  insert_personal_check_in, \
 							  insert_many_personal_check_ins, \
@@ -55,6 +62,8 @@ from database.database import get_db, \
 def database():
     db = get_db()
     return db
+
+
 
 
 def test_find_gyro_by_id(database, gyro_id):
@@ -344,6 +353,22 @@ def test_insert_personal_check_in(database):
 			assert result['patient_id'] == patient_id
 			assert result['category'] == category
 
+def test_insert_medication(database):
+	patient_id = uuid.uuid4()
+	device_id = uuid.uuid4()
+	scheduled_time = "morning"
+	response = true
+	assert insert_medication(database, id, patient_id, device_id, scheduled_time, response) is True
+
+	results = find_medication_by_patient_id(database, patient_id)
+	assert results is not None
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['device_id'] == device_id
+			assert result['scheduled_time'] == scheduled_time
+			assert result['response'] == response
+
+
 def test_insert_many_gyros(database, many_gyros):
 
 	gyro_id = many_gyros[1]["gyro_id"]
@@ -526,6 +551,30 @@ def test_insert_many_personal_check_ins(database, many_personal_check_ins):
 		if result['value'] == value:
 			assert result['category'] == category
 			assert result['patient_id'] == patient_id
+
+def test_insert_many_medications(database, many_medications):
+
+	patient_id = many_medications[1]["patient_id"]
+	device_id = many_medications[1]["device_id"]
+	scheduled_time = many_medications[1]["scheduled_time"]
+	response = many_medications[1]["response"]
+	
+	num_medications = len(find_all_medication(database))
+
+	num_added_medications = len(many_medications)
+
+	assert insert_many_medications(database, many_medications) is True
+
+	new_num_medications = len(find_all_medication(database))
+
+	assert new_num_medications == num_medications + num_added_medications
+
+	results = find_medication_by_patient_id(database, patient_id)
+	for result in results:
+		if result['patient_id'] == patient_id:
+			assert result['device_id'] == device_id
+			assert result['scheduled_time'] == scheduled_time
+			assert result['response'] == response
 
 def test_find_gyro_by_patient_id(database, patient_id):
 	results = find_gyro_by_patient_id(database, patient_id)
@@ -777,11 +826,30 @@ def test_query_emotion_by_time(database):
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 
 
-	# This time frame should return no results
-	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
-	end_time = str(datetime.datetime(2016, 3, 18, 16, 19, 6, 204031))
-	results = query_emotion_by_time(database, start_time, end_time)
-	assert results == []
+
+
+
+
+def test_find_medication_by_patient_id(database, patient_id):
+	results = find_medication_by_patient_id(database, patient_id)
+	assert results is not None
+	for result in results:
+		assert result['patient_id'] is not None
+		assert result['device_id'] is not None
+		assert result['scheduled_time'] is not None
+		assert result['response'] is not None
+
+def test_find_medication_by_device_id(database, device_id):
+	results = find_medication_by_device_id(database, device_id)
+	assert results is not None
+	for result in results:
+		assert result['patient_id'] is not None
+		assert result['device_id'] is not None
+		assert result['scheduled_time'] is not None
+		assert result['response'] is not None
+
+
+
 
 def test_query_personal_check_in_by_time(database):
 	# This time frame should return all results in the table
@@ -793,6 +861,27 @@ def test_query_personal_check_in_by_time(database):
 
 	all_personal_check_ins = find_all_personal_check_in(database)
 	assert len(all_personal_check_ins) == len(results)
+
+	assert results[0]['id'] is not None
+	assert results[0]['patient_id'] is not None 
+
+	# This time frame should return no results
+	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
+	end_time = str(datetime.datetime(2016, 3, 18, 16, 19, 6, 204031))
+	results = query_emotion_by_time(database, start_time, end_time)
+	assert results == []
+
+
+def test_query_medication_by_time(database):
+	# This time frame should return all results in the table
+	start_time = str(datetime.datetime(2015, 3, 18, 16, 19, 6, 204031))
+	end_time = str(datetime.datetime(2025, 3, 18, 16, 19, 6, 204031))
+
+	results = query_medication_by_time(database, start_time, end_time)
+	assert results is not None
+
+	all_medication = find_all_medication(database)
+	assert len(all_medication) == len(results)
 
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 

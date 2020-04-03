@@ -80,6 +80,18 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### find_medication_by_id(db, id)
+    """find one row in the medication table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (uuid): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
 ### find_all_gyros(db)
     """find all rows in the gyros table
 
@@ -137,6 +149,17 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_all_emotion(db)
     """find all rows in the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_medication(db)
+    """find all rows in the medication table
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -212,6 +235,17 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
+### insert_medication(id, patient_id, device_id, scheduled_time, response)
+    """insert row into the medication table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
+
+    Returns:
+            true on success, false on failure
+    """
+
 ### insert_many_gyros(db, rows):
     """insert many rows into the gyros table
 
@@ -269,6 +303,17 @@ API that handles the interfacing of data and the postgresql database server
 
 ### insert_many_emotions(db, rows):
     """insert many rows into the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_many_medications(db, rows):
+    """insert many rows into the medication table
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -340,6 +385,30 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_emotion_by_patient_id(db, patient_id)
     """find all rows in the emotion table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_medication_by_patient_id(db, patient_id)
+    """find all rows in the medication table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_medication_by_device_id(db, device_id)
+    """find all rows in the medication table that matches the given device_id
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -488,6 +557,19 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### query_medication_by_time(db, start_time, end_time)
+    """find all rows in medication table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
 ## Find one functions are mainly for testing purposes, they are not optimized for performance, but can still be used in production
 
 ### find_one_gyro(db)
@@ -547,6 +629,17 @@ API that handles the interfacing of data and the postgresql database server
 
 ### def find_one_emotion(db)
     """find one random row in the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### def find_one_medication(db)
+    """find one random row in the medication table
 
     Args:
         db (slqalchemy.engine): the database engine
