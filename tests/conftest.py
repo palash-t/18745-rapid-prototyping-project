@@ -8,7 +8,8 @@ from database.database import get_db, \
 							  find_one_biometric, \
 							  find_one_game, \
 							  find_one_test, \
-							  find_one_emotion
+							  find_one_emotion, \
+							  find_one_personal_check_in
 
 
 @pytest.fixture
@@ -140,6 +141,21 @@ def scheduled_time():
 def response():
 	db = get_db()
 	return str(find_one_medication(db)['response'])
+
+@pytest.fixture
+def medication_patient_id():
+	db = get_db()
+	return str(find_one_medication(db)['patient_id'])
+
+@pytest.fixture
+def medication_device_id():
+	db = get_db()
+	return str(find_one_medication(db)['device_id'])
+
+@pytest.fixture
+def personal_check_in_patient_id():
+	db = get_db()
+	return str(find_one_personal_check_in(db)['patient_id'])
 
 @pytest.fixture
 def many_gyros():

@@ -1237,7 +1237,7 @@ def find_personal_check_in_by_patient_id_and_category(db, patient_id, category):
 
     query = '''
          SELECT *
-           FROM emotion
+           FROM personal_check_in
           WHERE patient_id = %s
           AND category = %s;
     '''
