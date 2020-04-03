@@ -8,7 +8,8 @@ from database.database import get_db, \
 							  find_one_biometric, \
 							  find_one_game, \
 							  find_one_test, \
-							  find_one_emotion
+							  find_one_emotion, \
+							  find_one_personal_check_in
 
 
 @pytest.fixture
@@ -130,6 +131,11 @@ def dominant_emotion():
 def category():
 	db = get_db()
 	return str(find_one_personal_check_in(db)['category'])
+
+@pytest.fixture
+def personal_check_in_patient_id():
+	db = get_db()
+	return str(find_one_personal_check_in(db)['patient_id'])
 
 @pytest.fixture
 def many_gyros():
