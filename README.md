@@ -16,6 +16,13 @@ Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the code.
 
 ## Local Setup
 
+If you want to run the tests, just make sure you have docker installed and run the following command from the repo root
+```
+task run-tests
+```
+
+## Information in the section below is outdated
+
 Install postgres
 ```
 sudo apt update

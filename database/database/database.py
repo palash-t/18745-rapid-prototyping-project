@@ -13,7 +13,7 @@ from random import randrange
 
 from sqlalchemy import create_engine
 
-from logger import setup_logging
+from database.logger import setup_logging
 
 USERNAME = os.getenv('postgres', 'postgres')
 PASSWORD = os.getenv('admin', 'HhmL0SWLuxPirhQO9dXD')

@@ -41,13 +41,20 @@ tasks:
       - |
         PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/database/seeds/test_data.sql
 
+  build-database:
+    desc: Build database docker image
+    cmds:
+      - |
+        docker build --build-arg BUILD_TYPE=dev-test -t database-image database/
+
   run-tests:
     desc: Run the tests to exercise the database API
     cmds:
       - task: drop-db
       - task: restore-db
       - task: seed-test-data
-      - pytest database/tests/
+      - task: build-database
+      - docker run database-image
 
   drop-db-local:
     desc: Drop the engine_db
