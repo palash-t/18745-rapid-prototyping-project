@@ -31,7 +31,8 @@ RUN pip install \
         pytest-cov
 
 EXPOSE 5432
-CMD ["python", "-c", "import database.database;"]
+ENV PATH=$PATH:/holo
+CMD ["/database"]
 
 ####################################################################################################
 # stage: prod
