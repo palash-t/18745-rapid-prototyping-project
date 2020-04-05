@@ -16,7 +16,16 @@ Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the code.
 
 ## Local Setup
 
-If you want to run the tests, just make sure you have docker installed and run the following command from the repo root
+Install task
+```
+sudo apt install snapd -y
+$(shell echo "export PATH=${PATH}:/snap/bin" >> ~/.bashrc)
+sudo snap install task --classic
+sudo wget -O /usr/share/bash-completion/completions/task.bash https://raw.githubusercontent.com/go-task/task/v2.7.1/completion/bash/task.bash
+echo "Run \"source ~/.bashrc\" to get tab completion"
+```
+
+To run the tests, just make sure you have docker installed and run the following command from the repo root
 ```
 task run-tests
 ```
