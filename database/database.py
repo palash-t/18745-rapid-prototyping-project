@@ -748,7 +748,7 @@ def insert_personal_check_in(db, patient_id, category, value):
 
     return True
 
-def insert_medication(id, patient_id, device_id, scheduled_time, response):
+def insert_medication(db, patient_id, device_id, scheduled_time, response):
     """insert row into the medication table
 
     Args:

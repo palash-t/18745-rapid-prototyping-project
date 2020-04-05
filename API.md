@@ -158,6 +158,17 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### find_all_personal_check_in(db)
+    """find all rows in the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
 ### find_all_medication(db)
     """find all rows in the medication table
 
@@ -235,6 +246,17 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
+### insert_personal_check_in(db, patient_id, category, value)
+    """insert row into the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
+
+    Returns:
+            true on success, false on failure
+    """
+
 ### insert_medication(id, patient_id, device_id, scheduled_time, response)
     """insert row into the medication table
 
@@ -246,7 +268,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_gyros(db, rows):
+### insert_many_gyros(db, rows)
     """insert many rows into the gyros table
 
     Args:
@@ -257,7 +279,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_accels(db, rows):
+### insert_many_accels(db, rows)
     """insert many rows into the accel table
 
     Args:
@@ -268,7 +290,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_biometrics(db, rows):
+### insert_many_biometrics(db, rows)
     """insert many rows into the biometric table
 
     Args:
@@ -279,7 +301,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_games(db, rows):
+### insert_many_games(db, rows)
     """insert many rows into the game table
 
     Args:
@@ -290,7 +312,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_tests(db, rows):
+### insert_many_tests(db, rows)
     """insert many rows into the test table
 
     Args:
@@ -301,7 +323,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_emotions(db, rows):
+### insert_many_emotions(db, rows)
     """insert many rows into the emotion table
 
     Args:
@@ -312,7 +334,18 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_many_medications(db, rows):
+### insert_many_personal_check_ins(db, rows)
+    """insert many rows into the personal_check_in table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_many_medications(db, rows)
     """insert many rows into the medication table
 
     Args:
@@ -389,6 +422,19 @@ API that handles the interfacing of data and the postgresql database server
     Args:
         db (slqalchemy.engine): the database engine
         patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_personal_check_in_by_patient_id_and_category(db, patient_id, category)
+    """find all rows in the personal_check_in table that matches the given patient_id and category
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+        category (str): string representing a category (i.e. "sports")
 
     Returns:
         list(dicts) | []: Dicts with column names as keys. If no rows,
@@ -557,6 +603,19 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### query_personal_check_in_by_time(db, start_time, end_time)
+    """find all rows in personal_check_in table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
 ### query_medication_by_time(db, start_time, end_time)
     """find all rows in medication table that where recorded between a given start and end time
 
@@ -629,6 +688,17 @@ API that handles the interfacing of data and the postgresql database server
 
 ### def find_one_emotion(db)
     """find one random row in the emotion table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_personal_check_in(db)
+    """find one random row in the personal_check_in table
 
     Args:
         db (slqalchemy.engine): the database engine

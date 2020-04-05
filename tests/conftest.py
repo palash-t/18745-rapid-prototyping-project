@@ -9,7 +9,8 @@ from database.database import get_db, \
 							  find_one_game, \
 							  find_one_test, \
 							  find_one_emotion, \
-							  find_one_personal_check_in
+							  find_one_personal_check_in, \
+							  find_one_medication
 
 
 @pytest.fixture
@@ -138,7 +139,7 @@ def medication_patient_id():
 	return str(find_one_medication(db)['patient_id'])
 
 @pytest.fixture
-def medication_device_id():
+def device_id():
 	db = get_db()
 	return str(find_one_medication(db)['device_id'])
 
@@ -384,25 +385,25 @@ def many_medications():
 		"patient_id": uuid.uuid4(),
 		"device_id": uuid.uuid4(),
 		"scheduled_time": "evening",
-		"response": true,
+		"response": True,
 	},
 	{
 		"patient_id": uuid.uuid4(),
 		"device_id": uuid.uuid4(),
 		"scheduled_time": "morning",
-		"response": false,
+		"response": False,
 	},
 	{
 		"patient_id": uuid.uuid4(),
 		"device_id": uuid.uuid4(),
 		"scheduled_time": "afternoon",
-		"response": true,
+		"response": True,
 	},
 	{
 		"patient_id": uuid.uuid4(),
 		"device_id": uuid.uuid4(),
 		"scheduled_time": "evening",
-		"response": true,
+		"response": True,
 	}]
 	
 	return data

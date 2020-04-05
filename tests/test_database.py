@@ -64,8 +64,6 @@ def database():
     return db
 
 
-
-
 def test_find_gyro_by_id(database, gyro_id):
 	result = find_by_gyro_id(database, gyro_id)[0]
 	result_id = result['id']
@@ -357,8 +355,8 @@ def test_insert_medication(database):
 	patient_id = uuid.uuid4()
 	device_id = uuid.uuid4()
 	scheduled_time = "morning"
-	response = true
-	assert insert_medication(database, id, patient_id, device_id, scheduled_time, response) is True
+	response = True
+	assert insert_medication(database, patient_id, device_id, scheduled_time, response) is True
 
 	results = find_medication_by_patient_id(database, patient_id)
 	assert results is not None
@@ -367,7 +365,6 @@ def test_insert_medication(database):
 			assert result['device_id'] == device_id
 			assert result['scheduled_time'] == scheduled_time
 			assert result['response'] == response
-
 
 def test_insert_many_gyros(database, many_gyros):
 
@@ -651,7 +648,7 @@ def test_find_personal_check_in_by_patient_id_and_category(database, personal_ch
 		assert result['patient_id'] is not None
 		assert result['category'] is not None
 		assert result['value'] is not None 
-		assert str(result['patient_id']) == patient_id
+		assert str(result['patient_id']) == personal_check_in_patient_id
 
 def test_find_by_gyro_id(database, gyro_id):
 	results = find_by_gyro_id(database, gyro_id)
@@ -826,10 +823,6 @@ def test_query_emotion_by_time(database):
 	assert results[0]['id'] is not None
 	assert results[0]['patient_id'] is not None 
 
-
-
-
-
 def test_find_medication_by_patient_id(database, patient_id):
 	results = find_medication_by_patient_id(database, patient_id)
 	assert results is not None
@@ -847,9 +840,6 @@ def test_find_medication_by_device_id(database, device_id):
 		assert result['device_id'] is not None
 		assert result['scheduled_time'] is not None
 		assert result['response'] is not None
-
-
-
 
 def test_query_personal_check_in_by_time(database):
 	# This time frame should return all results in the table
