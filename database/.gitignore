@@ -1,6 +1,4 @@
 *.swp
-*.pyc
 *__pycache__/
 *.pytest_cache/
-*.cache
 *tests/__pycache__/

@@ -7,7 +7,7 @@ vars:
   PG_PASSWORD: HhmL0SWLuxPirhQO9dXD
   PG_HOST: rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com
   DB_NAME: engine_db
-  DUMP_FILE: database/seeds/init_engine_db.sql
+  DUMP_FILE: database/database/seeds/init_engine_db.sql
 
 tasks:
   drop-db:
@@ -21,25 +21,25 @@ tasks:
     desc: Restore the engine_db
     cmds: 
       - |
-        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/seeds/init_engine_db.sql
+        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/database/seeds/init_engine_db.sql
 
   dump-db:
     desc: Dump the engine_db
     cmds: 
       - |
-        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --schema-only --file=database/seeds/init_engine_db.sql
+        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --schema-only --file=database/database/seeds/init_engine_db.sql
 
   dump-data:
     desc: Dump the engine_db
     cmds: 
       - |
-        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --file=database/seeds/engine_db_data.sql
+        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --file=database/database/seeds/engine_db_data.sql
   
   seed-test-data:
     desc: Seeds local postgres database with test data
     cmds:
       - |
-        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/seeds/test_data.sql
+        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/database/seeds/test_data.sql
 
   run-tests:
     desc: Run the tests to exercise the database API
@@ -47,7 +47,7 @@ tasks:
       - task: drop-db
       - task: restore-db
       - task: seed-test-data
-      - pytest tests/
+      - pytest database/tests/
 
   drop-db-local:
     desc: Drop the engine_db
@@ -60,19 +60,19 @@ tasks:
     desc: Restore the engine_db
     cmds: 
       - |
-        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < database/seeds/init_engine_db.sql
+        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < database/database/seeds/init_engine_db.sql
 
   dump-db-local:
     desc: Dump the engine_db
     cmds: 
       - |
-        PGPASSWORD={{.LOCAL_PG_PASSWORD}} pg_dump -v --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} --schema-only --file=database/seeds/init_engine_db.sql
+        PGPASSWORD={{.LOCAL_PG_PASSWORD}} pg_dump -v --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} --schema-only --file=database/database/seeds/init_engine_db.sql
 
   seed-test-data-local:
     desc: Seeds local postgres database with test data
     cmds:
       - |
-        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < database/seeds/test_data.sql
+        PGPASSWORD={{.LOCAL_PG_PASSWORD}} psql --host {{.LOCAL_PG_HOST}} -U {{.LOCAL_PG_USER}} -d {{.LOCAL_DB_NAME}} < database/database/seeds/test_data.sql
 
   run-tests-local:
     desc: Run the tests to exercise the database API
@@ -80,4 +80,4 @@ tasks:
       - task: drop-db-local
       - task: restore-db-local
       - task: seed-test-data-local
-      - pytest tests/
+      - pytest database/tests/
