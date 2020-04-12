@@ -9,7 +9,7 @@ The Embedded System consists of a Particle Boron LTE board that publish/subscrib
 Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the database code.
 
 Ask Jiaqi Zou for questions regarding the embedded system code. 
-![](docs/embedded_pic.jpg)
+![](docs/embedded_pic.jpg | width=100)
 
 ## Checklist for adding an api function or adding to the schema
 
