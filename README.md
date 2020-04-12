@@ -4,7 +4,10 @@
 
 The APIs in this repository are the access point for Hardware and Dashboards to access data stored within this database. As Algorithms are specified and Dashboards gets nearer to completion, additional processing steps will be added. The schema can be located in schemas.json.
 
-Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the code.
+The Embedded System consists of a Particle Boron LTE board that publish/subscribe IMU and other sensor data to the cloud. By leveraging the cellular feature of Particle Boron, the Dashboard will be able to visualize realtime sensor data readings from the PD patient. On AWS EC2, we are able to leverage both the Particle Cloud's API and our own cloud platform API to transport sensor data into our own SQL database for further processings and visualizations. 
+
+Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the database code.
+Ask Jiaqi Zou for questions regarding the embedded system code. 
 
 ## Checklist for adding an api function or adding to the schema
 
@@ -29,6 +32,41 @@ To run the tests, just make sure you have docker installed and run the following
 ```
 task run-tests
 ```
+
+## Embedded Setup
+
+Go to Particle Web IDE: https://build.particle.io/ to import the .ino code.
+Connect to the Particle Boron Device and after activation, retrieve device ID and access token.
+
+Make sure node and npm are installed.
+```
+$ node -v
+$ npm -v
+```
+Install Particle-CLI tool.
+```
+$ npm install -g particle-cli
+$ particle update-cli
+$ particle login
+```
+Getting a Published variable or accessing a published function:
+```
+$ particle get variable_name
+$ particle call device_id function_name param
+```
+Flashing the Boron board over cloud in Web IDE is recommended. But flashing Boron over UART is:
+```
+$ particle flash --usb firmware.bin
+$ particle flash my_new_device_name tinker
+```
+
+To retrieve the device published stream, Run following command in terminal.
+```
+$ curl https://api.particle.io/v1/devices/e00fce686d200543393e0bba/events?access_token=35f5e67b960946849b604517030d0bc0f48d6753
+
+$ curl https://api.particle.io/v1/devices/e00fce686d200543393e0bba/ax?access_token=35f5e67b960946849b604517030d0bc0f48d6753
+```
+
 
 ## Information in the section below is outdated
 
@@ -58,3 +96,4 @@ Run tests (NOTE: this will blow the local database away and reseed with test_dat
 ```
 task run-tests
 ```
+
