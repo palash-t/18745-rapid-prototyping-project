@@ -7,7 +7,9 @@ The APIs in this repository are the access point for Hardware and Dashboards to 
 The Embedded System consists of a Particle Boron LTE board that publish/subscribe IMU and other sensor data to the cloud. By leveraging the cellular feature of Particle Boron, the Dashboard will be able to visualize realtime sensor data readings from the PD patient. On AWS EC2, we are able to leverage both the Particle Cloud's API and our own cloud platform API to transport sensor data into our own SQL database for further processings and visualizations. 
 
 Ask Sam Nelson, Scott Mionis, or Palash Thakur for questions regarding the database code.
+
 Ask Jiaqi Zou for questions regarding the embedded system code. 
+![](docs/embedded_pic.jpg)
 
 ## Checklist for adding an api function or adding to the schema
 
