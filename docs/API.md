@@ -202,7 +202,7 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
-### insert_biometric(db, patient_id, heart_rate, systolic_blood_pressure, diastolic_blood_pressure)
+### insert_biometric(db, patient_id, heart_rate, sbp, dbp)
     """insert row into the biometric table
 
     Args:
