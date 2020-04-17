@@ -67,7 +67,8 @@ CREATE TABLE public.biometric (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     patient_id uuid NOT NULL,
     heart_rate numeric,
-    blood_pressure numeric,
+    sbp numeric,
+    dbp numeric,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone,
     deleted_at timestamp without time zone
@@ -91,7 +92,8 @@ COMMENT ON COLUMN public.biometric.heart_rate IS 'The heart rate of the patient 
 -- Name: COLUMN biometric.blood_pressure; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN public.biometric.blood_pressure IS 'The blood pressure of the patient in mmHg';
+COMMENT ON COLUMN public.biometric.sbp IS 'The systolic blood pressure of the patient in mmHg';
+COMMENT ON COLUMN public.biometric.dbp IS 'The diastolic blood pressure of the patient in mmHg';
 
 
 --
