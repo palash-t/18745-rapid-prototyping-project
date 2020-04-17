@@ -593,7 +593,7 @@ def insert_accel(db, accel_id, description, patient_id, x, y, z):
 
     return True
 
-def insert_biometric(db, patient_id, heart_rate, blood_pressure):
+def insert_biometric(db, patient_id, heart_rate, systolic_blood_pressure, diastolic_blood_pressure):
     """insert row into the biometric table
 
     Args:
@@ -610,10 +610,10 @@ def insert_biometric(db, patient_id, heart_rate, blood_pressure):
     logger.info("Inserting row into biometric table")
 
     query = '''
-         INSERT INTO biometric (patient_id, heart_rate, blood_pressure)
-           VALUES (%s, %s, %s);
+         INSERT INTO biometric (patient_id, heart_rate, systolic_blood_pressure, diastolic_blood_pressure)
+           VALUES (%s, %s, %s, %s);
     '''
-    data = (patient_id, heart_rate, blood_pressure)
+    data = (patient_id, heart_rate, systolic_blood_pressure, diastolic_blood_pressure)
 
     try:
         db.execute(query, data)
@@ -856,8 +856,8 @@ def insert_many_biometrics(db, rows):
     logger.info("Inserting %s rows into biometric table", len(rows))
 
     query = '''
-         INSERT INTO biometric (patient_id, heart_rate, blood_pressure)
-           VALUES (%(patient_id)s, %(heart_rate)s, %(blood_pressure)s);
+         INSERT INTO biometric (patient_id, heart_rate, systolic_blood_pressure, diastolic_blood_pressure)
+           VALUES (%(patient_id)s, %(heart_rate)s, %(systolic_blood_pressure)s, %(diastolic_blood_pressure)s);
     '''
 
     try:

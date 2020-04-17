@@ -109,13 +109,15 @@ def test_find_biometric_by_id(database, patient_id):
 	result_id = result['id']
 	result_patient_id = result['patient_id']
 	assert str(result_patient_id) == patient_id
-	result_blood_pressure = result['blood_pressure']
+	result_diastolic_blood_pressure = result['diastolic_blood_pressure']
+	result_systolic_blood_pressure = result['systolic_blood_pressure']
 	result_heart_rate = result['heart_rate']
 
 	biometric = find_biometric_by_id(database, result_id)
 	assert biometric['id'] == result_id
 	assert biometric['patient_id'] == result_patient_id
-	assert biometric['blood_pressure'] == result_blood_pressure
+	assert biometric['systolic_blood_pressure'] == result_systolic_blood_pressure
+	assert biometric['diastolic_blood_pressure'] == result_diastolic_blood_pressure
 	assert biometric['heart_rate'] == result_heart_rate
 
 def test_find_game_by_id(database, game_id):
