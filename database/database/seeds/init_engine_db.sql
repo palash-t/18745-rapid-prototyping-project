@@ -89,7 +89,7 @@ COMMENT ON COLUMN public.biometric.heart_rate IS 'The heart rate of the patient 
 --
 -- TOC entry 3915 (class 0 OID 0)
 -- Dependencies: 198
--- Name: COLUMN biometric.blood_pressure; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN biometric.sbp; Type: COMMENT; Schema: public; Owner: postgres
 --
 
 COMMENT ON COLUMN public.biometric.sbp IS 'The systolic blood pressure of the patient in mmHg';

@@ -67,7 +67,8 @@ CREATE TABLE public.biometric (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     patient_id uuid NOT NULL,
     heart_rate numeric,
-    blood_pressure numeric,
+    sbp numeric,
+    dbp numeric,
     created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at timestamp without time zone,
     deleted_at timestamp without time zone
@@ -88,10 +89,11 @@ COMMENT ON COLUMN public.biometric.heart_rate IS 'The heart rate of the patient 
 --
 -- TOC entry 3914 (class 0 OID 0)
 -- Dependencies: 198
--- Name: COLUMN biometric.blood_pressure; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN biometric.sbp; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN public.biometric.blood_pressure IS 'The blood pressure of the patient in mmHg';
+COMMENT ON COLUMN public.biometric.sbp IS 'The systolic blood pressure of the patient in mmHg';
+COMMENT ON COLUMN public.biometric.dbp IS 'The diastolic blood pressure of the patient in mmHg';
 
 
 --
@@ -224,11 +226,11 @@ COPY public.accels (id, accel_id, description, patient_id, x, y, z, created_at, 
 -- Data for Name: biometric; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.biometric (id, patient_id, heart_rate, blood_pressure, created_at, updated_at, deleted_at) FROM stdin;
-00000000-0000-0000-0000-000000000001	10000000-0000-0000-0000-000000000000	61	120	2020-04-02 01:34:11.513105	\N	\N
-00000000-0000-0000-0000-000000000002	20000000-0000-0000-0000-000000000000	62	120	2020-04-02 01:34:11.513105	\N	\N
-00000000-0000-0000-0000-000000000003	30000000-0000-0000-0000-000000000000	63	120	2020-04-02 01:34:11.513105	\N	\N
-00000000-0000-0000-0000-000000000004	40000000-0000-0000-0000-000000000000	64	120	2020-04-02 01:34:11.513105	\N	\N
+COPY public.biometric (id, patient_id, heart_rate, sbp, dbp, created_at, updated_at, deleted_at) FROM stdin;
+00000000-0000-0000-0000-000000000001	10000000-0000-0000-0000-000000000000	61	120 140	2020-04-02 01:34:11.513105	\N	\N
+00000000-0000-0000-0000-000000000002	20000000-0000-0000-0000-000000000000	62	120 180	2020-04-02 01:34:11.513105	\N	\N
+00000000-0000-0000-0000-000000000003	30000000-0000-0000-0000-000000000000	63	120 200	2020-04-02 01:34:11.513105	\N	\N
+00000000-0000-0000-0000-000000000004	40000000-0000-0000-0000-000000000000	64	120 220	2020-04-02 01:34:11.513105	\N	\N
 \.
 
 
