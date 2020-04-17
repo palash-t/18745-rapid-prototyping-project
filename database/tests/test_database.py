@@ -109,13 +109,15 @@ def test_find_biometric_by_id(database, patient_id):
 	result_id = result['id']
 	result_patient_id = result['patient_id']
 	assert str(result_patient_id) == patient_id
-	result_blood_pressure = result['blood_pressure']
+	result_dbp = result['dbp']
+	result_sbp = result['sbp']
 	result_heart_rate = result['heart_rate']
 
 	biometric = find_biometric_by_id(database, result_id)
 	assert biometric['id'] == result_id
 	assert biometric['patient_id'] == result_patient_id
-	assert biometric['blood_pressure'] == result_blood_pressure
+	assert biometric['sbp'] == result_sbp
+	assert biometric['dbp'] == result_dbp
 	assert biometric['heart_rate'] == result_heart_rate
 
 def test_find_game_by_id(database, game_id):
@@ -183,7 +185,8 @@ def test_find_all_biometric(database):
 		assert result['id'] is not None
 		assert result['patient_id'] is not None
 		assert result['heart_rate'] is not None
-		assert result['blood_pressure'] is not None
+		assert result['sbp'] is not None
+		assert result['dbp'] is not None
 
 def test_find_all_game(database):
 	results = find_all_game(database)
@@ -268,15 +271,17 @@ def test_insert_accel(database):
 def test_insert_biometric(database):
 	patient_id = uuid.uuid4()
 	heart_rate = 43
-	blood_pressure = 120
+	sbp = 120
+	dbp = 140
 
-	assert insert_biometric(database, patient_id, heart_rate, blood_pressure) is True
+	assert insert_biometric(database, patient_id, heart_rate, sbp, dbp) is True
 
 	results = find_biometric_by_patient_id(database, patient_id)
 	assert results is not None
 	for result in results:
 		if result['patient_id'] == patient_id:
-			assert result['blood_pressure'] == blood_pressure
+			assert result['sbp'] == sbp
+			assert result['dbp'] == dbp
 			assert result['heart_rate'] == heart_rate
 
 def test_insert_game(database):
@@ -426,7 +431,8 @@ def test_insert_many_biometrics(database, many_biometrics):
 
 	patient_id = many_biometrics[1]["patient_id"]
 	heart_rate = many_biometrics[1]["heart_rate"]
-	blood_pressure = many_biometrics[1]["blood_pressure"]
+	sbp = many_biometrics[1]["sbp"]
+	dbp = many_biometrics[1]["dbp"]
 	
 	num_biometric = len(find_all_biometric(database))
 
@@ -442,7 +448,8 @@ def test_insert_many_biometrics(database, many_biometrics):
 	for result in results:
 		if result['patient_id'] == patient_id:
 			assert result['heart_rate'] == heart_rate
-			assert result['blood_pressure'] == blood_pressure
+			assert result['sbp'] == sbp
+			assert result['dbp'] == dbp
 			
 def test_insert_many_games(database, many_games):
 
@@ -604,7 +611,8 @@ def test_find_biometric_by_patient_id(database, patient_id):
 		assert result['id'] is not None
 		assert str(result['patient_id']) == patient_id
 		assert result['heart_rate'] is not None
-		assert result['blood_pressure'] is not None
+		assert result['sbp'] is not None
+		assert result['dbp'] is not None
 
 def test_find_game_by_patient_id(database, patient_id):
 	results = find_game_by_patient_id(database, patient_id)

@@ -84,11 +84,6 @@ def heart_rate():
 	return str(find_one_biometric(db)['heart_rate'])
 
 @pytest.fixture
-def blood_pressure():
-	db = get_db()
-	return str(find_one_biometric(db)['blood_pressure'])
-
-@pytest.fixture
 def game_desc():
 	db = get_db()
 	return str(find_one_game(db)['description'])
@@ -227,22 +222,26 @@ def many_biometrics():
 	data = [{
 		"patient_id": uuid.uuid4(),
 		"heart_rate": 120,
-		"blood_pressure": 140
+		"sbp": 140,
+		"dbp": 69
 	},
 	{
 		"patient_id": uuid.uuid4(),
 		"heart_rate": 100,
-		"blood_pressure": 120
+		"sbp": 420,
+		"dbp": 69
 	},
 	{
 		"patient_id": uuid.uuid4(),
 		"heart_rate": 90,
-		"blood_pressure": 140
+		"sbp": 7,
+		"dbp": 96
 	},
 	{
 		"patient_id": uuid.uuid4(),
 		"heart_rate": 120,
-		"blood_pressure": 105
+		"sbp": 89,
+		"dbp": 69
 	}]
 
 	return data
