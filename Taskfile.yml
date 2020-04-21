@@ -47,14 +47,14 @@ tasks:
       - |
         docker build --build-arg BUILD_TYPE=dev-test -t database-image database/
 
-  run-tests:
-    desc: Run the tests to exercise the database API
-    cmds:
-      - task: drop-db
-      - task: restore-db
-      - task: seed-test-data
-      - task: build-database
-      - docker run database-image
+  # run-tests:
+  #   desc: Run the tests to exercise the database API
+  #   cmds:
+  #     - task: drop-db
+  #     - task: restore-db
+  #     - task: seed-test-data
+  #     - task: build-database
+  #     - docker run database-image
 
   drop-db-local:
     desc: Drop the engine_db
