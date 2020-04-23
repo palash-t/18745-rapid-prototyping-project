@@ -59,6 +59,50 @@ CREATE TABLE public.accels (
 ALTER TABLE public.accels OWNER TO postgres;
 
 --
+-- TOC entry ? (class ? OID ?)
+-- Name: trajectories; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.trajectories (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    description character varying(255) NOT NULL,
+    patient_id uuid NOT NULL,
+    x numeric,
+    y numeric,
+    z numeric,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+ALTER TABLE public.trajectories OWNER TO postgres;
+
+--
+-- TOC entry ? (class ? OID ?)
+-- Name: tremor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+
+CREATE TABLE public.tremor (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    description character varying(255) NOT NULL,
+    patient_id uuid NOT NULL,
+    stationary boolean,
+    severity integer,
+    displacement numeric,
+    frequency numeric,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone
+);
+
+
+
+ALTER TABLE public.tremor OWNER TO postgres;
+
+
+--
 -- TOC entry 198 (class 1259 OID 20988)
 -- Name: biometric; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -294,6 +338,22 @@ ALTER TABLE ONLY public.biometric
 --
 
 ALTER TABLE ONLY public.accels
+    ADD CONSTRAINT unique_pkey UNIQUE (id);
+
+--
+-- TOC entry ? (class ? OID ?)
+-- Name: trajectories unique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trajectories
+    ADD CONSTRAINT unique_pkey UNIQUE (id);
+
+--
+-- TOC entry ? (class ? OID ?)
+-- Name: tremor unique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tremor
     ADD CONSTRAINT unique_pkey UNIQUE (id);
 
 
