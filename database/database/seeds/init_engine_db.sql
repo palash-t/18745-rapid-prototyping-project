@@ -99,8 +99,13 @@ CREATE TABLE public.tremor (
 
 
 
+
 ALTER TABLE public.tremor OWNER TO postgres;
 
+COMMENT ON COLUMN public.tremor.stationary IS 'The stationary status of the patient - true or false';
+COMMENT ON COLUMN public.tremor.severity IS 'The severity of the tremors expressed as a numeric value';
+COMMENT ON COLUMN public.tremor.displacement IS 'The displacement of the tremors, expressed as a numeric value';
+COMMENT ON COLUMN public.tremor.frequency IS 'The frequency of the tremors in Hz';
 
 --
 -- TOC entry 198 (class 1259 OID 20988)
