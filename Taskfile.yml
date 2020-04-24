@@ -29,12 +29,30 @@ tasks:
       - |
         PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --schema-only --file=database/database/seeds/init_engine_db.sql
 
+  restore-db-full:
+    desc: Restore the engine_db with data
+    cmds:
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} pg_restore --host {{.PG_HOST}} -U {{.PG_USER}} -j 8 -d {{.DB_NAME}} --clean --if-exists database/database/seeds/init_engine_db_with_data.dump
+
+  dump-db-full:
+    desc: Dump the engine_db with data
+    cmds:
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} -Fc -Z 9 --file=database/database/seeds/init_engine_db_with_data.dump
+
   dump-data:
     desc: Dump the engine_db
     cmds: 
       - |
         PGPASSWORD={{.PG_PASSWORD}} pg_dump -v --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} --file=database/database/seeds/engine_db_data.sql
   
+  restore-data:
+    desc: Dump the engine_db
+    cmds: 
+      - |
+        PGPASSWORD={{.PG_PASSWORD}} psql --host {{.PG_HOST}} -U {{.PG_USER}} -d {{.DB_NAME}} < database/database/seeds/engine_db_data.sql
+
   seed-test-data:
     desc: Seeds local postgres database with test data
     cmds:
