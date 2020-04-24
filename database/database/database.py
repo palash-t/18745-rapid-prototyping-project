@@ -143,6 +143,71 @@ def find_accel_by_id(db, _id):
 
     return single_row_to_dict(result)
 
+def find_trajectories_by_id(db, _id):
+    """find one row in the trajectories table that matches the given id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (uuid): unique id for row
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching one row from trajectories table")
+
+    query = '''
+         SELECT *
+           FROM trajectories
+          WHERE id = %s;
+    '''
+    data = (_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    return single_row_to_dict(result)
+
+
+def find_tremor_by_id(db, _id):
+    """find one row in the tremor table that matches the given id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        _id (uuid): unique id for row
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching one row from tremor table")
+
+    query = '''
+         SELECT *
+           FROM tremor
+          WHERE id = %s;
+    '''
+    data = (_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    return single_row_to_dict(result)
+
 def find_biometric_by_id(db, _id):
     """find one row in the biometric table that matches the given id
 
@@ -381,6 +446,56 @@ def find_all_accels(db):
     dicts = rows_to_dicts(result)
     return dicts
 
+def find_all_trajectories(db):
+    """find all rows in the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching all rows from trajectories table")
+    query = '''
+         SELECT *
+           FROM trajectories;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
+    return dicts
+
+def find_all_tremor(db):
+    """find all rows in the tremor table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching all rows from tremor table")
+    query = '''
+         SELECT *
+           FROM tremor;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result)
+    return dicts
+
 def find_all_biometric(db):
     """find all rows in the biometric table
 
@@ -588,6 +703,68 @@ def insert_accel(db, accel_id, description, patient_id, x, y, z):
         db.execute(query, data)
     except Exception as ex:
         logger.error("Failed to execute insert query for accels table")
+        raise ex
+        return False
+
+    return True
+
+def insert_trajectories(db, traj_id, description, patient_id, x, y, z):
+    """insert row into the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting row into trajectories table")
+
+    query = '''
+         INSERT INTO trajectories (traj_id, description, patient_id, x, y, z)
+           VALUES (%s, %s, %s, %s, %s, %s);
+    '''
+    data = (traj_id, description, patient_id, x, y, z)
+
+    try:
+        db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute insert query for trajectories table")
+        raise ex
+        return False
+
+    return True
+
+def insert_tremor(db, trem_id, description, patient_id, stat, sev, disp, freq):
+    """insert row into the tremor table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting row into tremor table")
+
+    query = '''
+         INSERT INTO tremor (trem_id, description, patient_id, stat, sev, disp, freq)
+           VALUES (%s, %s, %s, %s, %s, %s);
+    '''
+    data = (traj_id, description, patient_id, stat, sev, disp, freq)
+
+    try:
+        db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute insert query for tremor table")
         raise ex
         return False
 
@@ -839,6 +1016,66 @@ def insert_many_accels(db, rows):
 
     return True
 
+def insert_many_trajectories(db, rows):
+    """insert many rows into the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into trajectories table", len(rows))
+
+    query = '''
+         INSERT INTO trajectories (traj_id, description, patient_id, x, y, z)
+           VALUES (%(traj_id)s, %(description)s, %(patient_id)s, %(x)s, %(y)s, %(z)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for trajectories table")
+        raise ex
+        return False
+
+    return True
+
+def insert_many_tremor(db, rows):
+    """insert many rows into the tremor table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Inserting %s rows into tremor table", len(rows))
+
+    query = '''
+         INSERT INTO trajectories (trem_id, description, patient_id, stat, sev, disp, freq)
+           VALUES (%(trem_id)s, %(description)s, %(patient_id)s, %(stat)s, %(sev)s, %(disp)s, %(freq)s);
+    '''
+
+    try:
+        db.execute(query, rows)
+    except Exception as ex:
+        logger.error("Failed to execute insert many query for tremor table")
+        raise ex
+        return False
+
+    return True
+
 def insert_many_biometrics(db, rows):
     """insert many rows into the biometric table
 
@@ -1072,6 +1309,72 @@ def find_accels_by_patient_id(db, patient_id):
     query = '''
          SELECT *
            FROM accels
+          WHERE patient_id = %s;
+    '''
+    data = (patient_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_trajectories_by_patient_id(db, patient_id):
+    """find all rows in the trajectories table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from the trajectories table by patient_id")
+
+    query = '''
+         SELECT *
+           FROM trajectories
+          WHERE patient_id = %s;
+    '''
+    data = (patient_id)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def find_tremor_by_patient_id(db, patient_id):
+    """find all rows in the tremor table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (uuid): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from the tremor table by patient_id")
+
+    query = '''
+         SELECT *
+           FROM tremor
           WHERE patient_id = %s;
     '''
     data = (patient_id)
@@ -1551,6 +1854,74 @@ def query_accels_by_time(db, start_time, end_time):
     dicts = rows_to_dicts(result) 
     return dicts
 
+def query_trajectories_by_time(db, start_time, end_time):
+    """find all rows in trajectories table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from trajectories table by time")
+
+    query = '''
+         SELECT *
+           FROM trajectories
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
+def query_tremor_by_time(db, start_time, end_time):
+    """find all rows in tremor table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+    logger = logging.getLogger(__name__)
+
+    validate_db(db, 'engine_db')
+
+    logger.info("Fetching rows from tremor table by time")
+
+    query = '''
+         SELECT *
+           FROM tremor
+          WHERE created_at BETWEEN %s AND %s;
+    '''
+    data = (start_time, end_time)
+
+    try:
+        result = db.execute(query, data)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+
+    dicts = rows_to_dicts(result) 
+    return dicts
+
 def query_biometric_by_time(db, start_time, end_time):
     """find all rows in biometric table that where recorded between a given start and end time
 
@@ -1798,6 +2169,56 @@ def find_one_accel(db):
     query = '''
          SELECT *
            FROM accels;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result) 
+    return dicts[randrange(len(dicts))]
+
+def find_one_trajectory(db):
+    """find one random row in the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from trajectories table")
+    query = '''
+         SELECT *
+           FROM trajectories;
+    '''
+    try:
+        result = db.execute(query)
+    except Exception as ex:
+        logger.error("Failed to execute query")
+        raise ex
+    dicts = rows_to_dicts(result) 
+    return dicts[randrange(len(dicts))]
+
+def find_one_tremor(db):
+    """find one random row in the tremor table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+    logger = logging.getLogger(__name__)
+    validate_db(db, 'engine_db')
+    logger.info("Fetching random row from tremo table")
+    query = '''
+         SELECT *
+           FROM tremo;
     '''
     try:
         result = db.execute(query)

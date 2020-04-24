@@ -32,6 +32,30 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### find_trajectories_by_id(db, id)
+    """find one row in the trajectories table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
+### find_tremor_by_id(db, id)
+    """find one row in the tremor table that matches the given primary key id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        id (str(uuid)): unique id for row, same as the primary key
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty list is returned.
+    """
+
 ### find_biometric_by_id(db, id)
     """find one row in the biometric table that matches the given primary key id
 
@@ -105,6 +129,28 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_all_accels(db)
     """find all rows in the accels table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_trajectories(db)
+    """find all rows in the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_all_tremor(db)
+    """find all rows in the tremor table
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -202,6 +248,28 @@ API that handles the interfacing of data and the postgresql database server
             true on success, false on failure
     """
 
+### insert_trajectories (db, traj_id, description, patient_id, x, y, z)
+    """insert row into the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_tremor (db, trem_id, description, patient_id, stat, sev, disp, freq)
+    """insert row into the tremor table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        all table columns (see schema for info)
+
+    Returns:
+            true on success, false on failure
+    """
+
 ### insert_biometric(db, patient_id, heart_rate, sbp, dbp)
     """insert row into the biometric table
 
@@ -281,6 +349,28 @@ API that handles the interfacing of data and the postgresql database server
 
 ### insert_many_accels(db, rows)
     """insert many rows into the accel table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_many_trajectories(db, rows)
+    """insert many rows into the trajectories table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        rows list(dicts): a list of dictionaries, each dictionary represents a row.
+
+    Returns:
+            true on success, false on failure
+    """
+
+### insert_many_tremor(db, rows)
+    """insert many rows into the tremor table
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -370,6 +460,30 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_accels_by_patient_id(db, patient_id)
     """find all rows in the accels table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_trajectories_by_patient_id(db, patient_id)
+    """find all rows in the trajectories table that matches the given patient_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        patient_id (str(uuid)): id for patient
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_tremor_by_patient_id(db, patient_id)
+    """find all rows in the tremor table that matches the given patient_id
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -489,6 +603,30 @@ API that handles the interfacing of data and the postgresql database server
             an empty list is returned.
     """
 
+### find_by_trajectories_id(db, traj_id)
+    """find all rows in a given table that match the given traj_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        accel_id (str(uuid)): id of the given accelerometer
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### find_by_tremor_id(db, trem_id)
+    """find all rows in a given table that match the given trem_id
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        accel_id (str(uuid)): id of the given accelerometer
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
 ### find_by_game_id(db, game_id)
     """find all rows in a given table that match the given game_id
 
@@ -540,6 +678,32 @@ API that handles the interfacing of data and the postgresql database server
 
 ### query_accels_by_time(db, start_time, end_time)
     """find all rows in accels table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_trajectories_by_time(db, start_time, end_time)
+    """find all rows in trajectories table that where recorded between a given start and end time
+
+    Args:
+        db (slqalchemy.engine): the database engine
+        start_time (timestamp)
+        end_time (timestamp)
+
+    Returns:
+        list(dicts) | []: Dicts with column names as keys. If no rows,
+            an empty list is returned.
+    """
+
+### query_tremor_by_time(db, start_time, end_time)
+    """find all rows in tremor table that where recorded between a given start and end time
 
     Args:
         db (slqalchemy.engine): the database engine
@@ -644,6 +808,28 @@ API that handles the interfacing of data and the postgresql database server
 
 ### find_one_accel(db)
     """find one random row in the accels table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_trajectory(db)
+    """find one random row in the trajectory table
+
+    Args:
+        db (slqalchemy.engine): the database engine
+
+    Returns:
+        result(dict): Dict with column names as keys. If no row,
+            an empty dict is returned.
+    """
+
+### find_one_tremor(db)
+    """find one random row in the tremor table
 
     Args:
         db (slqalchemy.engine): the database engine
