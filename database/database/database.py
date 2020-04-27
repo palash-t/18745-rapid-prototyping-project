@@ -759,7 +759,7 @@ def insert_tremor(db, trem_id, description, patient_id, stat, sev, disp, freq):
          INSERT INTO tremor (trem_id, description, patient_id, stat, sev, disp, freq)
            VALUES (%s, %s, %s, %s, %s, %s);
     '''
-    data = (traj_id, description, patient_id, stat, sev, disp, freq)
+    data = (trem_id, description, patient_id, stat, sev, disp, freq)
 
     try:
         db.execute(query, data)
